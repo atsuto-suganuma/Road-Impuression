@@ -1,0 +1,24 @@
+<header class="navbar navbar-inverse">
+  <nav class="nav navbar-nav bavbar-left">
+    <h1 class="title">Road Impression -ロープレ-</h1>
+  </nav>
+  <nav>
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li>マイページ</li>
+        <li>このサイトについて</li>
+        <li>プライバシーポリシー</li>
+        <li>お問い合わせ</li>
+        <li>ログアウト</li>
+        <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span></li>
+      <% else %>
+        <li>新規登録</li>
+        <li>ログイン</li>
+        <li>このサイトについて</li>
+        <li>プライバシーポリシー</li>
+        <li>お問い合わせ</li>
+        <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span></li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
