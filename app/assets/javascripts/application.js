@@ -11,8 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require cocoon
 //= require rails-ujs
 //= require turbolinks
+//= require popper
 //= require bootstrap-sprockets
 //= require_tree .
 
@@ -49,4 +51,12 @@ $(function() {
     }, 800); //800ミリ秒かけて移動して！
       return false;
     });
+});
+
+$(function() {
+  $('.menu-trigger').on('click', function() {
+    $(this).toggleClass('active');
+    $('#sp-menu').fadeToggle();
+    return false;
+  });
 });

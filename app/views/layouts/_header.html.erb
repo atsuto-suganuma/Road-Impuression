@@ -1,19 +1,24 @@
-<header class="navbar navbar-inverse">
+<header class="navbar navbar-expand-sm" style="background-color: gray;">
   <nav class="nav navbar-nav bavbar-left">
-    <h1 class="title">Road Impression -ロープレ-</h1>
+    <%= link_to root_path do %>
+      <%= image_tag "logo.png",size: "200x100", :class => "logo-img" %>
+    <% end %>
   </nav>
-  <nav>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav">
       <% if user_signed_in? %>
-        <li>マイページ</li>
+        <li>
+          <%= link_to user_path(current_user.id) do %>
+            <%= attachment_image_tag current_user,:profile_image, fallback: "no_image.jpg",  size:"45x45" ,:class => "head-user-icon"%>
+          <% end %>
+        </li>
         <li>このサイトについて</li>
         <li>プライバシーポリシー</li>
         <li>お問い合わせ</li>
-        <li>ログアウト</li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
         <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span></li>
       <% else %>
-        <li>新規登録</li>
-        <li>ログイン</li>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
         <li>このサイトについて</li>
         <li>プライバシーポリシー</li>
         <li>お問い合わせ</li>

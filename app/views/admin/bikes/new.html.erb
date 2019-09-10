@@ -1,0 +1,30 @@
+<%= render 'layouts/admin-header' %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-lg-8">
+      <h2>バイク新規登録</h2>
+      <%= form_for @bike, :url => {:action => :create} do |f| %>
+        <%= f.fields_for :bike_images do |f| %>
+          <%= render 'bike_image_fields', f: f %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association "画像を追加", f, :bike_images, class:"btn btn-primary" %><br>
+
+          <%= f.text_field :bike_name, placeholder: "バイク名", class:"form-control" %>
+          <%#= select_tag :maker_id,
+            options_from_collection_for_select(Maker.all, :id, :maker_name) %>
+
+             <%= f.collection_select :maker_id, Maker.all, :id, :maker_name %>
+          <%= f.text_field :tag_list, value: @bike.tag_list.join(','), class:"form-control",placeholder: "タグを入力してください。区切りは「,」で行えます。" %>
+
+<!--           <%= f.fields_for :years_bikes do |i| %>
+          <%= i.text_area :bike_body, placeholder: "概要を入力してください。", class:"form-control" %> -->
+          <% end %>
+          <%= f.text_area :bike_body, placeholder: "概要を入力してください。", class:"form-control" %>
+          <%= f.submit "この内容でバイクを保存する", class:"btn btn-primary text-center" %>
+      <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+<%=render 'layouts/footer' %>

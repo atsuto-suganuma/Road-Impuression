@@ -1,0 +1,55 @@
+<!-- <section class="slice slice-lg sct-color-1"> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <div class="form-user stlye-1 rounded has-shadow-1">
+          <div class="form-header text-center">
+            <h2 class="form-header-title">アカウント登録</h2>
+          </div>
+          <div class="form-body">
+            <div class="row">
+              <div class="col-xs-offset-1 col-xs-10">
+                <div class="text-center">
+                  <h4>すべて入力して下さい。</h4>
+                </div>
+              </div>
+            </div>
+
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+            <%= devise_error_messages! %>
+
+            <div class="field">
+              <div class="form-group has-icon">
+                <label class="control-label sr-only" for="inputname">ユーザー名</label>
+                <%= f.text_field :name, autofocus: true, class:"form-control", id:"inputname", placeholder:"ユーザー名" %>
+              </div>
+
+              <div class="form-group has-icon">
+                <label class="control-label sr-only" for="inputemail">Email</label>
+                <%= f.email_field :email, autofocus: true, class:"form-control", id:"inputemail", placeholder:"メールアドレス" %>
+              </div>
+
+              <div class="form-group has-icon">
+                <label class="control-label sr-only" for="inputpassword"></label>
+                <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> 桁以上)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "new-password", class:"form-control", id:"inputpassword", placeholder:"パスワード 半角英数字" %>
+              </div>
+
+              <div class="form-group has-icon">
+                <label class="control-label sr-only" for="inputpassword_confirmation">password_confirmation</label>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password" , class:"form-control", id:"inputpassword_confirmation", placeholder:"パスワード確認" %>
+              </div>
+
+              <%= f.submit "アカウントを登録する", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </section>
+ -->

@@ -1,0 +1,16 @@
+<%=render 'layouts/admin-header' %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>メーカー登録フォーム</h2>
+      <%= simple_form_for @maker, :url => {:action => :create} do |f| %>
+      <%= f.attachment_field :maker_image %>
+      <%= f.input :maker_name, label:"メーカー名", placeholder: "メーカー名" %>
+      <%= f.input :country, iso_codes: true, label: "国名" %>
+      <%= f.input :body, as: :text, label: "メーカー概要", placeholder: "メーカー概要を入力" %>
+      <%= f.button :submit, "この内容でメーカーを新規登録", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%=render 'layouts/footer' %>
