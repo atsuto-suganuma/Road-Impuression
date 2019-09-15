@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  maker_name: MyString
+  maker_image_id: MyText
+  body: MyText
+  created_at: 2019-09-07 07:13:19
+  updated_at: 2019-09-07 07:13:19
+
+two:
+  maker_name: MyString
+  maker_image_id: MyText
+  body: MyText
+  created_at: 2019-09-07 07:13:19
+  updated_at: 2019-09-07 07:13:19

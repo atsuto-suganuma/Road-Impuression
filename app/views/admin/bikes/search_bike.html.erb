@@ -1,0 +1,11 @@
+   <% @bikes.each do |bike|%>
+      <div class="col-sm-6 col-lg-3">
+        <%= render "admin/bikes/tag-list", tag_list: bike.tag_list, maker: @maker %>
+        <%= link_to admin_maker_bike_show_path(bike.id) do %>
+        <% bike.bike_images.each do |bike_image|%>
+          <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x100", fallback:"no_image(2).jpg", size:"200x125" %>
+          <% end %>
+        <% end %>
+        <%= bike.bike_name %>
+      </div>
+    <% end %>

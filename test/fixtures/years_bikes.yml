@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bike_id: 1
+  impression_id: 1
+  bike_image_id: 1
+  year: 1
+  year_bike_body: MyText
+
+two:
+  bike_id: 1
+  impression_id: 1
+  bike_image_id: 1
+  year: 1
+  year_bike_body: MyText

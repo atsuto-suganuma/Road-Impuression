@@ -1,0 +1,41 @@
+<body>
+<header class="navbar navbar-expand-sm" style="background-color: #f000;">
+  <nav class="nav navbar-nav bavbar-left">
+    <%= link_to admin_users_path do %>
+      <%= image_tag "logo.png",size: "200x100", :class => "logo-img" %>
+    <% end %>
+    <h1 class="header-title">管理者ページ</h1>
+    <ul class="nav navbar-nav">
+      <div id="sp-menu">
+        <li>
+          <%= link_to "ユーザー一覧", admin_users_path, class:"hm-link text-center" %>
+        </li>
+        <li>
+          <%= link_to "メーカー一覧", admin_makers_path, class:"hm-link text-center" %>
+        </li>
+        <li>
+          <%= link_to "インプレッション一覧", admin_impressions_path, class:"hm-link text-center" %></li>
+        <li>
+          <%= link_to "掲示板一覧", admin_threads_path, class:"hm-link text-center" %>
+        </li>
+        <li>
+          <%= link_to "メーカー新規登録", new_admin_maker_path, class:"hm-link text-center" %>
+        </li>
+        <li>
+          <%= link_to "バイク新規登録", admin_bikes_new_path, class:"hm-link text-center" %>
+        </li>
+　      <li>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"hm-link text-center" %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="hm-icon">
+   <%= link_to "#", class:"menu-trigger link" do %>
+     <span></span>
+     <span></span>
+     <span></span>
+   <% end %>
+  </div>
+</header>
+</body>

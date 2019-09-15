@@ -11,8 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require cocoon
 //= require rails-ujs
 //= require turbolinks
+//= require popper
 //= require bootstrap-sprockets
 //= require_tree .
 
@@ -42,11 +44,26 @@ $(document).ready(function() {
 });
 
 $(function() {
-
   $('#back a').on('click',function(){ //クラス、バック配下にあるエータグをクリックしたときにおこる処理。バックエーのところでアイディー名の子要素を指定する。ドットオン（イベント名、関数）で様々なイベント処理を実施
     $('body, html').animate({ //セレクタにアニメーション（値の変化）を実装する
       scrollTop:0 //ページ最上部から０pxの位置まで
     }, 800); //800ミリ秒かけて移動して！
       return false;
     });
+});
+
+$(function() {
+  $('.menu-trigger').on('click', function() {
+    $(this).toggleClass('active');
+    $('#sp-menu').fadeToggle();
+    return false;
+  });
+});
+
+
+$(function(){
+  $(".small-image").click(function(){
+    url = $(this).attr("src");
+    $("#big-image").attr("src", url);
+  });
 });

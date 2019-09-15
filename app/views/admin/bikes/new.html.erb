@@ -1,0 +1,20 @@
+<%= render 'layouts/admin-header' %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-lg-8">
+      <h2>バイク新規登録</h2>
+      <%= form_for @bike, :url => {:action => :create} do |f| %>
+        <%= f.attachment_field :bike_image %>
+          <%= f.text_field :bike_name, placeholder: "バイク名", class:"form-control" %>
+          <%= f.text_field :bike_name_kana, placeholder: "バイク名読み方", class:"form-control" %>
+          <%= f.collection_select :maker_id, Maker.all, :id, :maker_name %>
+          <%= f.select :genre, [["エアロ","aero"],["オールラウンド","allround"],["エンデュランス","endurance"]], class:"form-control" %>
+          <%= f.select :grade, [["エントリー","entry"],["ミドル","middle"],["ハイエンド","highend"],["フラグシップ","flagship"]], class:"form-control" %>
+          <%= f.text_field :tag_list, value: @bike.tag_list.join(','), class:"form-control",placeholder: "タグを入力してください。区切りは「,」で行えます。" %>
+          <%= f.submit "この内容でバイクを保存する", class:"btn btn-primary text-center" %>
+      <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+<%=render 'layouts/footer' %>

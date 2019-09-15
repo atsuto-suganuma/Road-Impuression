@@ -1,0 +1,20 @@
+<%= render 'layouts/admin-header' %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-lg-8">
+      <h2>バイク年度情報　編集</h2>
+      <%= form_for @years_bike, url: admin_maker_years_bike_update_path(id: @years_bike.id, bike_id: @years_bike.bike_id) do |f| %>
+        <%= f.fields_for :years_bike_images do |f| %>
+          <%= render 'years_bike_image_fields', f: f %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association "画像を追加", f, :years_bike_images, class:"btn btn-primary" %><br>
+        </div>
+          <%= f.number_field :year, placeholder: "年度", class:"form-control" %>
+          <%= f.text_area :year_bike_body, placeholder: "概要を入力してください。", class:"form-control" %>
+          <%= f.submit "この内容でバイクを保存する", class:"btn btn-primary text-center" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%=render 'layouts/footer' %>

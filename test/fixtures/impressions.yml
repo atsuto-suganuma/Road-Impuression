@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  bike_id: 1
+  impression_text: MyText
+  design_evaluation: 1
+  weight_evaluation: 1
+  rigidity_evaluation: 1
+  comfort_evaluation: 1
+  cp_evaluation: 1
+  created_at: 2019-09-14 03:06:55
+  updated_at: MyString
+  datetime: MyString
+
+two:
+  user_id: 1
+  bike_id: 1
+  impression_text: MyText
+  design_evaluation: 1
+  weight_evaluation: 1
+  rigidity_evaluation: 1
+  comfort_evaluation: 1
+  cp_evaluation: 1
+  created_at: 2019-09-14 03:06:55
+  updated_at: MyString
+  datetime: MyString
