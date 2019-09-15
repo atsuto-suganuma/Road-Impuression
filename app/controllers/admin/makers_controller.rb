@@ -1,4 +1,5 @@
 class Admin::MakersController < ApplicationController
+
   def index
     @makers = Maker.all
   end
@@ -14,6 +15,33 @@ class Admin::MakersController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @maker = Maker.find(params[:id])
+    if params[:tag_name]
+      @bikes = Bike.tagged_with("#{params[:tag_name]}")
+    else
+     @bikes = @maker.bikes
+    end
+  end
+  def edit
+    @maker = Maker.find(params[:id])
+  end
+
+  def update
+    @maker = Maker.find(params[:id])
+    if @maker.update(maker_params)
+       redirect_to admin_maker_path(@maker.id)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @maker = Maker.find(params[:id])
+    @maker.destroy
+    redirect_to admin_makers_path
   end
 
   private

@@ -1,0 +1,48 @@
+<%= render "layouts/admin-header" %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <h2>
+        <%= @bike.bike_name %><br>
+        <%= @bike.bike_name_kana %>
+      </h2>
+        <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <img id="big-image" src="" style="width:800px; height:500px;">
+          </div>
+        </div>
+      <% @bike.bike_images.each_with_index do |bike_image, i| %>
+        <% if bike_image.display_order == 1 %>
+          <div class="row small-image-list">
+            <div class="col-sm-3 col-sm-3 small-image">
+              <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125", class:"small-image", id:"small1" %>
+            </div>
+          <% else %>
+            <div class="col-sm-3 col-sm-3 small-image">
+              <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125", class:"small-image" %>
+            </div>
+        <% if (i == @bike.bike_images.size - 1) %>
+          </div>
+        <% end %>
+      <% end %>
+      <% end %>
+          <div class="col-sm-12 col-lg-12">
+            <h3>バイク概要</h3>
+            <%= @bike.bike_body %>
+          </div>
+          <h3>インプレッション</h3>
+          <%= link_to "このバイクを編集する", admin_maker_bike_edit_path, class:"btn btn-warning" %>
+    </div>
+  </div>
+</div>
+<%= render "layouts/footer" %>
+
+
+
+
+<script type="text/javascript">
+  $(function(){
+    var url = $('#small1').attr("src");
+    $('#big-image').attr("src", url);
+  });
+</script>

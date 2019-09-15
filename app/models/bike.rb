@@ -1,11 +1,15 @@
 class Bike < ApplicationRecord
   has_many :bike_favorites
-  has_many :bike_images
-  # has_many :years_bikes
+  has_many :years_bikes
   belongs_to :maker
 
-  accepts_nested_attributes_for :bike_images, allow_destroy: true
-  attachment :image
-  # accepts_nested_attributes_for :years_bikes, allow_destroy: true
+  attachment :bike_image
   acts_as_taggable
+  acts_as_taggable_on :tags
+
+  enum genre: { aero: 0, allround: 1, endurance: 2 }
+  enum grade: { entry: 0, middle: 1, highend: 2, flagship: 3 }
+
+
+
 end

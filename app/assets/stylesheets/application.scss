@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require flag_icon_css
  */
  @import "bootstrap";
 
@@ -131,119 +132,6 @@
   list-style:none;
 }
 
-.maker-logo {
-  width: 150px;
-  height:30px;
-  margin: 20px;
-  display: inline-block;
-}
-.giant {
-  background-image: url(giant-logo2.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.merida {
-  background-image: url(merida-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.trek {
-  background-image: url(trek-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.cannondale {
-  background-image: url(cannondale-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.specialized {
-  background-image: url(specialized-logo.png);
-  background-size:cover;
-  background-position:center;
-}
-.pinarello {
-  background-image: url(pinarello-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.bianchi {
-  background-image: url(bianchi-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.colnago {
-  background-image: url(colnago-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.derosa {
-  background-image: url(derosa-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.wilier {
-  background-image: url(wilier-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.bmc {
-  background-image: url(bmc-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.cervelo {
-  background-image: url(cervelo-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.ridley {
-  background-image: url(ridley-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.look {
-  background-image: url(look-logo.png);
-  background-size:cover;
-  background-position:center;
-}
-.time {
-  background-image: url(time-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.scott {
-  background-image: url(scott-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.lapierre {
-  background-image: url(lapierre-logo.jpg);
-  background-size:100% 100%;
-  background-position:center;
-}
-.felt {
-  background-image: url(felt-logo.png);
-  background-size:100% 100%;
-  background-position:center;
-}
-.corratec {
-  background-image: url(corratec-logo.jpg);
-  background-size:cover;
-  background-position:center;
-}
-.canyon {
-  background-image: url(canyon-logo.png);
-  background-size:cover;
-  background-position:center;
-}
-
-.bike{
-  width:230px;
-  height: 200px;
-  margin: 10px;
-  float:left;
-}
 .aero {
   background-image: url(venge-vias.jpg);
   background-size:cover;
@@ -272,4 +160,20 @@
 .image_size{
 	display: block;
     margin: 50px;
+}
+
+.flag-icon{
+  font-size: 75px;
+}
+
+.maker-title {
+  padding-top: 30px;
+}
+
+.bike-index {
+  padding: 10px;
+}
+
+.bike-image {
+  padding: 10px;
 }

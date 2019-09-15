@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_10_072856) do
+ActiveRecord::Schema.define(version: 2019_09_14_121038) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,20 +29,29 @@ ActiveRecord::Schema.define(version: 2019_09_10_072856) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "bike_images", force: :cascade do |t|
-    t.integer "bike_id"
-    t.text "image_id"
-    t.integer "display_order"
+  create_table "bikes", force: :cascade do |t|
+    t.integer "maker_id"
+    t.string "bike_name"
+    t.string "bike_name_kana"
+    t.text "bike_image_id"
+    t.integer "genre"
+    t.integer "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "bikes", force: :cascade do |t|
-    t.integer "maker_id"
-    t.string "bike_name"
-    t.text "bike_body"
+  create_table "impressions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "bike_id"
+    t.text "impression_text"
+    t.integer "design_evaluation"
+    t.integer "weight_evaluation"
+    t.integer "rigidity_evaluation"
+    t.integer "comfort_evaluation"
+    t.integer "cp_evaluation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "datetime"
   end
 
   create_table "makers", force: :cascade do |t|
@@ -100,10 +109,18 @@ ActiveRecord::Schema.define(version: 2019_09_10_072856) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "years_bike_images", force: :cascade do |t|
+    t.text "image_id"
+    t.integer "display_order"
+    t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "years_bike_id"
+  end
+
   create_table "years_bikes", force: :cascade do |t|
     t.integer "bike_id"
-    t.integer "impression_id"
-    t.integer "bike_image_id"
+    t.integer "years_bike_image_id"
     t.integer "year"
     t.text "year_bike_body"
     t.datetime "created_at", null: false

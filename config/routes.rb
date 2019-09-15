@@ -12,17 +12,30 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'root#top'
+
+  resources :users, only: [:show, :edit, :update, :destroy]
+  resources :makers, only: [:index, :show] do
+    get 'bikes/:id' => 'bikes#show', as: 'bike_show'
+  end
+
   namespace :admin do
     resources :users, only: [:index, :show, :update, :destroy]
 
     resources :makers do
-      resource :bikes, only:[:index, :show, :destroy]
-    end
+      get 'bikes/:id' => 'bikes#show', as: 'bike_show'
+      delete 'bikes/:id' => 'bikes#destroy',as: 'bike_destroy'
+      get 'bikes/:id/edit' =>'bikes#edit', as: 'bike_edit'
+      patch 'bikes/:id' => 'bikes#update',as: 'bike_update'
+        get 'bikes/:bike_id/years_bikes/new' => 'years_bikes#new', as: 'years_bike_new'
+        post 'bikes/:bike_id/years_bikes' => 'years_bikes#create', as: 'years_bike_create'
+        get 'bikes/:id/years_bikes/:year/edit' => 'years_bikes#edit', as: 'years_bike_edit'
+        patch 'bikes/:bike_id/years_bikes/:year' => 'years_bikes#update', as: 'years_bike_update'
+        delete 'bikes/:id/years_bikes' => 'years_bikes#destroy', as: 'years_bike_destroy'
+  end
 
+    get 'search/:tag' => 'bikes#search_bike', as: 'search_bike'
     get 'bikes/new'
     post 'bikes/create'
-    get 'bikes/edit'
-    put 'bikes/update'
 
     resources :impressions, only: [:index, :destroy]
 
