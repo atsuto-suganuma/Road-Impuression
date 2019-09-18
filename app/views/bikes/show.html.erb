@@ -1,4 +1,4 @@
-<%= render "layouts/admin-header" %>
+<%= render 'layouts/header',q: @q %>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-lg-12">
@@ -6,35 +6,106 @@
         <%= @bike.bike_name %><br>
         <%= @bike.bike_name_kana %>
       </h2>
-        <div class="row">
+          <% @years_bikes.each_with_index do |years_bike, i| %>
+    <% if (i == 0) %>
+        <%= form_with(url: maker_bike_show_path(@bike.id, @bike.maker_id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
+  <%= f.collection_select :year, YearsBike.all, :year, :year %>
+  <%= f.submit "検索", class:"btn btn-default" %>
+<% end %>
+    <% else %>
+    <% end %>
+    <% end %>
+
+<!--         recent_year_bikeの情報出す
+        @year_bikesをいーちまわす
+      　年度表示
+        year=bike.bike=imagesをいーちまわす
+        それぞれの年度ごとのバイクの画像表示 -->
+                <div class="row">
           <div class="col-sm-12 col-lg-12">
             <img id="big-image" src="" style="width:800px; height:500px;">
           </div>
         </div>
-      <% @bike.bike_images.each_with_index do |bike_image, i| %>
-        <% if bike_image.display_order == 1 %>
+
+
+    <% @recent_years_bikes.years_bike_images.each_with_index do |years_bike_image, i| %>
+      <% if years_bike_image.display_order == 1 %>
           <div class="row small-image-list">
             <div class="col-sm-3 col-sm-3 small-image">
-              <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125", class:"small-image", id:"small1" %>
+              <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image", id:"small1" %>
             </div>
           <% else %>
             <div class="col-sm-3 col-sm-3 small-image">
-              <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125", class:"small-image" %>
+              <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image" %>
             </div>
-        <% if (i == @bike.bike_images.size - 1) %>
+          <% if (i == @recent_years_bikes.years_bike_images.size - 1) %>
           </div>
-        <% end %>
+          </div>
+          <% end %>
       <% end %>
-      <% end %>
+    <% end %>
           <div class="col-sm-12 col-lg-12">
             <h3>バイク概要</h3>
-            <%= @bike.bike_body %>
+            <%= @recent_years_bikes.year_bike_body %>
           </div>
-          <h3>インプレッション</h3>
-          <%= link_to "このバイクを編集する", admin_maker_bike_edit_path, class:"btn btn-warning" %>
+          <div class="row">
+            <div class="col-sm-12 col-lg-12">
+              <h3>インプレッション</h3>
+             <canvas id="myChart" style =width:200px, height:200px;></canvas>
+            </div>
+            <div class="col-sm-12 col-lg-12s">
+              <h3>レビュー詳細</h3>
+              <%= @bike.impressions.each do |impression| %>
+              <%= impression.user.name%>
+              <%= link_to user_path(current_user.id) do %>
+              <%= attachment_image_tag current_user, :profile_image, format:"jpeg", size:"80x80", fallback: "no_image(1).jpg",:class => "head-user-icon"%>
+              <% end %>
+              <%= impression.impression_title %>
+              <%= impression.impression_text %>
+              <% end %>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-lg-12">
+              <% if user_signed_in? %>
+              <div class="new_review">
+                <div class="form-group review-forms">
+                  <h3>新規インプレッション投稿</h3>
+                  <%= form_for([@bike.maker, @bike.id, @impression], url: maker_impression_create_path, html: {method: "post"}) do |f| %>
+                  <div class="form-group" id="design_star">
+                    <%= f.label :design_evaluation, 'デザイン評価', class:"col-form-label" %>
+                    <%= f.hidden_field :design_evaluation,value: @design_star %>
+                  </div>
+                  <div class="form-group" id="weight_star">
+                    <%= f.label :weight_evaluation, '重量評価', class:"col-form-label" %>
+                    <%= f.hidden_field :weight_evaluation,value: @weight_star %>
+                  </div>
+                  <div class="form-group" id="rigidity_star">
+                    <%= f.label :rigidity_evaluation, '剛性評価', class:"col-form-label" %>
+                    <%= f.hidden_field :rigidity_evaluation,value: @rigidity_star %>
+                  </div>
+                  <div class="form-group" id="comfort_star">
+                    <%= f.label :comfort_evaluation, '快適性評価', class:"col-form-label" %>
+                    <%= f.hidden_field :comfort_evaluation,value: @comfort_star %>
+                  </div>
+                  <div class="form-group" id="cp_star">
+                    <%= f.label :cp_evaluation, 'コストパフォーマンス評価', class:"col-form-label" %>
+                    <%= f.hidden_field :cp_evaluation,value: @cp_star %>
+                  </div>
+                  <%= f.text_field :impression_title, class:"form-control", placeholder: "レビュータイトル" %>
+                    <%= f.text_area :impression_text, class:"form-control", placeholder: "コメントをここに" %><br>
+                    <%= f.submit "送信する",class:"btn btn-danger" %>
+                  <% end %>
+                 </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
     </div>
   </div>
 </div>
+</div>
+</div>
+
 <%= render "layouts/footer" %>
 
 
@@ -45,4 +116,96 @@
     var url = $('#small1').attr("src");
     $('#big-image').attr("src", url);
   });
+</script>
+
+
+
+
+
+<script>
+  $('#design_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[design_evaluation]',
+  });
+
+  $('#weight_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[weight_evaluation]',
+  });
+
+  $('#rigidity_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[rigidity_evaluation]',
+  });
+
+  $('#comfort_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[comfort_evaluation]',
+  });
+
+  $('#cp_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[cp_evaluation]',
+  });
+  </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script>
+$(function(){
+
+
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+          labels: ["デザイン", "重量", "剛性", "快適性", "コストパフォーマンス"],
+          datasets: [{
+              label: 'ユーザーの平均評価',
+              data: <%= @reviews %>,
+              backgroundColor: [
+                  'rgba(144, 238, 144, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(75, 192, 192, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          title: {
+            display: true,
+            text: 'ユーザー評価'
+          },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                    min: 0,
+                    max: 5,
+                    stepSize: 1,
+                    suggestedMax: 5,
+                    suggestedMin: 1,
+                    callback: function(value, index, values){
+                    return  value +  'つ星'
+                      beginAtZero:true
+                   }
+                  }
+              }]
+            }
+          }
+      }
+
+  );
+})
+
 </script>

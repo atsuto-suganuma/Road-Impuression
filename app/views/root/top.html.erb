@@ -1,4 +1,4 @@
-<%= render 'layouts/header' %>
+<%= render 'layouts/header',q: @q %>
 
   <div class="body">
     <div class="container container1">
@@ -35,9 +35,15 @@
         <h2 class="index-title">タイプから選ぶ</h2>
         <div class="bike-type">
           <ul class="list">
-            <li class="bike aero">エアロロード</li>
-            <li class="bike all-round">オールラウンド</li>
-            <li class="bike endurance">エンデュランス</li>
+            <%= link_to search_genre_path(0) do %>
+               <li class="bikes aero">エアロロード</li>
+            <% end %>
+            <%= link_to search_genre_path(1) do %>
+              <li class="bikes all-round">オールラウンド</li>
+            <% end %>
+            <%= link_to search_genre_path(2) do %>
+              <li class="bikes endurance">エンデュランス</li>
+            <% end %>
           </ul>
         </div>
       </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_121038) do
+ActiveRecord::Schema.define(version: 2019_09_16_121413) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 2019_09_14_121038) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "bike_favorites", force: :cascade do |t|
+    t.integer "bike_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bikes", force: :cascade do |t|
@@ -52,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_09_14_121038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "datetime"
+    t.string "impression_title"
   end
 
   create_table "makers", force: :cascade do |t|
@@ -86,6 +94,13 @@ ActiveRecord::Schema.define(version: 2019_09_14_121038) do
     t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "user_favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "impression_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

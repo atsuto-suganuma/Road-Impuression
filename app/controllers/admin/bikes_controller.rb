@@ -30,11 +30,24 @@ class Admin::BikesController < ApplicationController
     end
   end
 
-  def search_bike
-    @bikes = Bike.tagged_with(params[:tag])
-  end
+    def search_bike
+    if params[:tag_name]
+       @bikes = Bike.tagged_with("#{params[:tag_name]}")
+    else
+       @q = Bike.includes(:maker, :years_bikes).ransack(search_params)
+       @bikes = @q.result(distinct: true)
+    end
+    end
+
+  # def search_bike
+
+  #   @bikes = Bike.tagged_with(params[:tag])
+  # end
 
   private
+    def search_params
+      params.require(:q).permit!
+    end
 
   def bike_params
     params.require(:bike).permit(:bike_name, :bike_name_kana, :bike_image, :bike_body, :tag_list, :genre, :grade, :maker_id)

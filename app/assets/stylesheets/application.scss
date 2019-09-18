@@ -16,6 +16,7 @@
  */
  @import "bootstrap";
 
+/*ヘッダー*/
 .head-user-icon {
     border-radius: 50%;
 }
@@ -24,6 +25,7 @@
   margin: 20px;
 }
 
+/*ここからハンバーガーメニュー*/
 #hm-icon{
   position: fixed;
   right: 50px;
@@ -74,7 +76,6 @@
   background-color: #fff;
 }
    
-
 #sp-menu {
   position: fixed;
   top: 0;
@@ -95,7 +96,9 @@
   text-decoration: none;
   font-weight: bold;
 }
+/*ここまでハンバーガーメニュー*/
 
+/*ここからスキッパー*/
 .container1{
   height:500px;
 }
@@ -114,6 +117,9 @@
 .image5{
   background-image: url(roadbike4.jpg);
 }
+/*ここまでスキッパー*/
+
+/*User#Top*/
 .text-box{
   margin:50px auto;
 }
@@ -132,6 +138,14 @@
   list-style:none;
 }
 
+.bikes {
+  width:200px;
+  height: 125px;
+  float:left;
+  margin: 5px;
+  padding :10px;
+}
+
 .aero {
   background-image: url(venge-vias.jpg);
   background-size:cover;
@@ -147,7 +161,7 @@
   background-size:cover;
   background-position:center;
 }
-
+/*ここからページアップ*/
 #back{
   position: fixed;
   right: 20px;
@@ -161,7 +175,9 @@
 	display: block;
     margin: 50px;
 }
+/*ここまでページアップ*/
 
+/*BIKE#SHOW*/
 .flag-icon{
   font-size: 75px;
 }
@@ -176,4 +192,75 @@
 
 .bike-image {
   padding: 10px;
+}
+
+.wrap{
+  width: 100%;
+  margin: 0 auto;
+}
+ 
+.clearfix:after{
+  content:"";
+  clear: both;
+  display: block;
+}
+ 
+#tab-menu li {
+  float: left;
+  list-style-type: none;
+  width: 33%;
+}
+ 
+#tab-menu a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #000;
+  border-bottom: none;
+}
+ 
+#tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+ 
+#tab-contents .tab {
+  padding: 30px;
+  background: #fff;
+  border-top: none;
+}
+ 
+#tab-contents p{
+  color:#000;
+  line-height: 2.5;
+}
+
+/*USER#SHOW*/
+.callout1-left {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0 1.5em 15px;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+}
+
+.callout1-left:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #e0edff;
+}
+
+.callout1-left p {
+  margin: 0;
+  padding: 0;
 }

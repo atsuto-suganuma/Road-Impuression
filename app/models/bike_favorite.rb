@@ -1,0 +1,2 @@
+class BikeFavorite < ApplicationRecord
+end
