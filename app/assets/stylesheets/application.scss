@@ -16,6 +16,7 @@
  */
  @import "bootstrap";
 
+/*ヘッダー*/
 .head-user-icon {
     border-radius: 50%;
 }
@@ -24,6 +25,7 @@
   margin: 20px;
 }
 
+/*ここからハンバーガーメニュー*/
 #hm-icon{
   position: fixed;
   right: 50px;
@@ -74,7 +76,6 @@
   background-color: #fff;
 }
    
-
 #sp-menu {
   position: fixed;
   top: 0;
@@ -95,7 +96,9 @@
   text-decoration: none;
   font-weight: bold;
 }
+/*ここまでハンバーガーメニュー*/
 
+/*ここからスキッパー*/
 .container1{
   height:500px;
 }
@@ -114,6 +117,9 @@
 .image5{
   background-image: url(roadbike4.jpg);
 }
+/*ここまでスキッパー*/
+
+/*User#Top*/
 .text-box{
   margin:50px auto;
 }
@@ -132,6 +138,14 @@
   list-style:none;
 }
 
+.bikes {
+  width:200px;
+  height: 125px;
+  float:left;
+  margin: 5px;
+  padding :10px;
+}
+
 .aero {
   background-image: url(venge-vias.jpg);
   background-size:cover;
@@ -147,7 +161,7 @@
   background-size:cover;
   background-position:center;
 }
-
+/*ここからページアップ*/
 #back{
   position: fixed;
   right: 20px;
@@ -161,7 +175,9 @@
 	display: block;
     margin: 50px;
 }
+/*ここまでページアップ*/
 
+/*Maker#SHOW*/
 .flag-icon{
   font-size: 75px;
 }
@@ -176,4 +192,140 @@
 
 .bike-image {
   padding: 10px;
+}
+/*bike#show*/
+.balloon5 {
+  width: 100%;
+  margin: 1.5em 0;
+  overflow: hidden;
+}
+
+.balloon5 .faceicon {
+  float: left;
+  margin-right: -90px;
+  width: 80px;
+}
+
+.balloon5 .faceicon img{
+  width: 100%;
+  height: auto;
+  border: solid 3px #d7ebfe;
+  border-radius: 50%;
+}
+
+.balloon5 .chatting {
+  width: 100%;
+}
+
+.says {
+  display: inline-block;
+  position: relative;
+  margin: 5px 0 0 105px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #d7ebfe;
+  min-width: 600px;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  left: -24px;
+  border: 12px solid transparent;
+  border-right: 12px solid #d7ebfe;
+}
+
+.says p {
+  margin: 0;
+  padding: 0;
+}
+
+.grad-wrap {
+  position: relative;
+}
+.grad-wrap + .grad-wrap {
+  margin-top: 40px;
+}
+.grad-trigger {
+   z-index: 2;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 148px;
+  margin: auto;
+  padding: .5em 0;
+  border-radius: 2px;
+  background: #009e8f;
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: .2s ease;
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+.grad-trigger::after {
+  content: "もっと見る" /*クリック前のボタンのラベル*/
+}
+.grad-trigger .fa {
+  margin-right: .5em;
+}
+.grad-item {
+  position: relative;
+  overflow: hidden;
+}
+.grad-item.is-hide {
+  height: 80px; /*隠した後の高さ*/
+}
+.grad-item::before {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 30px; /*グラデーションで隠す高さ*/
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);
+  background: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);
+}
+
+.grad-trigger.is-show::after {
+  content: "閉じる" /*クリック後にボタンのラベルを変える*/
+}
+.grad-trigger.is-show + .grad-item::before {
+  display: none;
+}
+
+.like-hide{
+  display: none;
+}
+
+/*USER#SHOW*/
+.callout1-left {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0 1.5em 15px;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+}
+
+.callout1-left:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #e0edff;
+}
+
+.callout1-left p {
+  margin: 0;
+  padding: 0;
 }

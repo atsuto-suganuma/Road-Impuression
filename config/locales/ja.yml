@@ -92,3 +92,8 @@ ja:
         middle: "ミドル"
         highend: "ハイエンド"
         flagship: "フラグシップ"
+      caution:
+        normal: "違反なし"
+        caution: "注意"
+        warning: "警告"
+        discipline: "懲戒"

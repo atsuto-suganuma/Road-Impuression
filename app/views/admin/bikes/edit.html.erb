@@ -1,4 +1,4 @@
-<%= render 'layouts/admin-header' %>
+<%=render 'layouts/admin-header', q: @q %>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-lg-8">
@@ -8,7 +8,7 @@
           <%= f.text_field :bike_name_kana, placeholder: "バイク名読み方", class:"form-control" %>
           <%= f.collection_select :maker_id, Maker.all, :id, :maker_name %><br>
           <%= f.select :genre, [["エアロ", 'aero'],["オールラウンド", 'allround'],["エンデュランス", 'endurance']], class:"form-control" %><br>
-          <%= f.select :grade, [["エントリー", 'entry'],["ミドル", 'middle'],["ハイエンド", 'hignend'],["フラグシップ", 'flagship']], class:"form-control" %><br>
+          <%= f.select :grade, [["エントリー", 'entry'],["ミドル", 'middle'],["ハイエンド", 'highend'],["フラグシップ", 'flagship']], class:"form-control" %><br>
           <%= f.text_field :tag_list, value: @bike.tag_list.join(','), class:"form-control",placeholder: "タグを入力してください。区切りは「,」で行えます。" %>
           <%= f.submit "この内容でバイクを保存する", class:"btn btn-primary text-center" %>
       <% end %>

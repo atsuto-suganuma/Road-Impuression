@@ -1,0 +1,52 @@
+<section class="slice slice-lg sct-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <div class="form-user style-1 rounded has-shadow-1">
+                    <div class="form-header">
+                        <h2 class="form-header-title">ユーザー情報　編集</h2></div>
+
+                      <div class="form-body">
+                        <div class="row">
+                        <div class="col-xs-12">
+
+                          <%= form_for(@user) do |f| %>
+                          <div class="form-group has-icon text-center">
+                            <label class="control-label sr-only" for="inputfhandlename"></label>
+                            <%= attachment_image_tag @user, :profile_image,fallback: "no_image(1).jpg",  size:"150x150" %>
+                            <%= f.attachment_field :profile_image %>
+                          </div>
+
+                          <div class="form-group has-icon">
+                            <label class="control-label" for="inputfname">ユーザー名</label>
+                            <%= f.text_field :name, autofocus: true, class:"form-control", id:"inputnane", placeholder:"ユーザー名"%>
+                          </div>
+
+                          <div class="form-group has-icon">
+                            <label class="control-label" for="inputfintroduction">自己紹介</label>
+                            <%= f.text_area :introduction, autofocus: true, class:"form-control", id:"inputintroduction", placeholder:"自己紹介を入力してください。"%>
+                          </div>
+
+                          <div class="form-group has-icon">
+                            <label class="control-label" for="inputfmail">メールアドレス</label>
+                            <%= f.email_field :email, autofocus: true, class:"form-control", id:"inputemail", placeholder:"メールアドレス"%>
+                          </div>
+
+                          <div class="form-group has-icon">
+                          <%= f.submit "登録内容を変更する", class:"form-control btn btn-primary" %></div>
+                          <div class="form-group has-icon">
+                          <%= link_to"パスワード変更に進む", edit_user_registration_path , class:"btn btn-success" %></div>
+                      <% end %>
+                    </div>
+
+                    </div>
+
+
+                  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

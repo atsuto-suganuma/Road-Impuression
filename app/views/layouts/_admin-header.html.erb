@@ -6,6 +6,10 @@
     <% end %>
     <h1 class="header-title">管理者ページ</h1>
     <ul class="nav navbar-nav">
+          <%= search_form_for(q, url: admin_search_bike_path, html: {method: "get"}) do |f| %>
+            <%= f.search_field :bike_name_or_bike_name_kana_or_maker_maker_name_or_genre_cont, placeholder: 'メーカー名またはバイク名で検索', class:"form-control" %>
+            <%= f.submit "検索", class:"btn btn-default" %>
+            <% end %>
       <div id="sp-menu">
         <li>
           <%= link_to "ユーザー一覧", admin_users_path, class:"hm-link text-center" %>

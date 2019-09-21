@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row">
+    <div class="new_review">
+      <h3>インプレッション更新</h3>
+      <br>
+      <div class="form-group">
+        <%= form_for([@bike.maker, @bike.id, @impression], url: maker_impression_update_path, html: {method: "patch"}) do |f| %>
+        <div class="form-group" id="satisfaction_star">
+          <%= f.label :satisfaction_level, '総合評価', class:"col-form-label" %>
+          <%= f.hidden_field :satisfaction_level,value: @satisfaction_star %>
+        </div>
+        <div class="form-group" id="design_star">
+          <%= f.label :design_evaluation, 'デザイン評価', class:"col-form-label" %>
+          <%= f.hidden_field :design_evaluation,value: @design_star %>
+        </div>
+        <div class="form-group" id="weight_star">
+          <%= f.label :weight_evaluation, '重量評価', class:"col-form-label" %>
+          <%= f.hidden_field :weight_evaluation,value: @weight_star %>
+        </div>
+        <div class="form-group" id="rigidity_star">
+          <%= f.label :rigidity_evaluation, '剛性評価', class:"col-form-label" %>
+          <%= f.hidden_field :rigidity_evaluation,value: @rigidity_star %>
+        </div>
+        <div class="form-group" id="comfort_star">
+          <%= f.label :comfort_evaluation, '快適性評価', class:"col-form-label" %>
+          <%= f.hidden_field :comfort_evaluation,value: @comfort_star %>
+        </div>
+        <div class="form-group" id="cp_star">
+          <%= f.label :cp_evaluation, 'コストパフォーマンス評価', class:"col-form-label" %>
+          <%= f.hidden_field :cp_evaluation,value: @cp_star %>
+        </div>
+        <%= f.text_field :impression_title, class:"form-control", placeholder: "レビュータイトル" %>
+        <%= f.text_area :impression_text, class:"form-control", placeholder: "コメントをここに" %>
+        <br>
+        <%= f.submit "送信する",class:"btn btn-danger" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#design_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[design_evaluation]',
+  });
+
+  $('#satisfaction_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[satisfaction_level]',
+  });
+
+  $('#weight_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[weight_evaluation]',
+  });
+
+  $('#rigidity_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[rigidity_evaluation]',
+  });
+
+  $('#comfort_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[comfort_evaluation]',
+  });
+
+  $('#cp_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[cp_evaluation]',
+  });
+
+  </script>

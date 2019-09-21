@@ -1,2 +1,33 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<%= render 'layouts/header',q: @q %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-lg-3">
+      <h3>マイページ</h3>
+      <%= attachment_image_tag @user, :profile_image, size: '180x180', fallback: "no_image(1).jpeg", size: '180x180' %>
+      <h4><%= @user.name %></h4>
+      <div class="favorite">
+        <p>参考になった！獲得数 ☆14</p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-6">
+      <div class="callout1-left">
+        <p><%= simple_format@user.introduction %></p>
+      </div>
+      <%= link_to "編集", edit_user_path(@user.id), class:"btn btn-success" %>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-9">
+        <h3>お気に入りバイク</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-9">
+        <h3>インプレッション一覧</h3>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-3">
+      <p>サイドバーです</p>
+    </div>
+  </div>
+</div>
+<%= render 'layouts/footer' %>

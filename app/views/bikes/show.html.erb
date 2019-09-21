@@ -1,4 +1,5 @@
-<%= render "layouts/admin-header" %>
+<%= render 'layouts/header',q: @q %>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-lg-12">
@@ -6,35 +7,195 @@
         <%= @bike.bike_name %><br>
         <%= @bike.bike_name_kana %>
       </h2>
-        <div class="row">
-          <div class="col-sm-12 col-lg-12">
-            <img id="big-image" src="" style="width:800px; height:500px;">
-          </div>
+      <% @years_bikes.each_with_index do |years_bike, i| %>
+        <% if (i == 0) %>
+          <%= form_with(url: maker_bike_show_path(@bike.id, @bike.maker_id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
+            <%= f.collection_select :year, YearsBike.all, :year, :year %>
+            <%= f.submit "検索", class:"btn btn-default" %>
+          <% end %>
+        <% else %>
+        <% end %>
+        <% end %>
+
+<!--         recent_year_bikeの情報出す
+@year_bikesをいーちまわす
+　年度表示
+year=bike.bike=imagesをいーちまわす
+それぞれの年度ごとのバイクの画像表示 -->
+      <div class="row">
+        <div class="col-sm-12 col-lg-12">
+          <img id="big-image" src="" style="width:800px; height:500px;">
         </div>
-      <% @bike.bike_images.each_with_index do |bike_image, i| %>
-        <% if bike_image.display_order == 1 %>
+      </div>
+
+
+      <% @recent_years_bikes.years_bike_images.each_with_index do |years_bike_image, i| %>
+        <% if years_bike_image.display_order == 1 %>
           <div class="row small-image-list">
             <div class="col-sm-3 col-sm-3 small-image">
-              <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125", class:"small-image", id:"small1" %>
+              <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image", id:"small1" %>
             </div>
-          <% else %>
-            <div class="col-sm-3 col-sm-3 small-image">
-              <%= attachment_image_tag bike_image, :image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125", class:"small-image" %>
-            </div>
-        <% if (i == @bike.bike_images.size - 1) %>
+        <% else %>
+          <div class="col-sm-3 col-sm-3 small-image">
+            <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image" %>
           </div>
+          <% if (i == @recent_years_bikes.years_bike_images.size - 1) %>
+          </div>
+    </div>
+          <% end %>
         <% end %>
       <% end %>
-      <% end %>
-          <div class="col-sm-12 col-lg-12">
-            <h3>バイク概要</h3>
-            <%= @bike.bike_body %>
+    <div class="col-sm-12 col-lg-12">
+      <h3>バイク概要</h3>
+      <%= @recent_years_bikes.year_bike_body %>
+    </div>
+    <% if @bike.favorited_by?(current_user) %>
+      <%= link_to "このバイクをお気に入り登録する", maker_bike_favorite_create_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_favorite_destroy_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
+    <% else %>
+      <%= link_to "このバイクをお気に入り登録する", maker_bike_favorite_create_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_favorite_destroy_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
+    <% end %>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <h3>インプレッション</h3>
+        <canvas id="myChart" style ="width:200px, height:200px;"></canvas>
+      </div>
+      <div class="col-sm-12 col-lg-12">
+        <h3>レビュー詳細</h3>
+        <% @bike.impressions.each do |impression| %>
+          <div class="impression-area">
+            <div class="balloon5">
+              <div class="faceicon">
+                <%= impression.user.name%>
+                <%= link_to user_path(current_user.id) do %>
+                  <%= attachment_image_tag current_user, :profile_image, format:"jpeg", size:"80x80", fallback: "no_image(1).jpg",:class => "head-user-icon"%>
+                <% end %>
+              </div>
+              <div class="chatting">
+                <div class="says">
+                  <b><%= impression.impression_title %></b><br>
+                    <p style="display: inline-block;">総合評価：<div class="satisfaction_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+                      <p style="display: inline-block;">デザイン評価：<div class="design_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+                      <p style="display: inline-block;">重量評価：<div class="weight_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+                      <p style="display: inline-block;">剛性評価：<div class="rigidity_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+                      <p style="display: inline-block;">快適性評価：<div class="comfort_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+                      <p style="display: inline-block;">コストパフォーマンス評価：<div class="cp_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+                    <% if impression.impression_text.lines.count > 4 %>
+                    <div class="grad-warp">
+                      <span class="grad-trigger"></span>
+                      <div class="grad-item">
+                      <%= simple_format(impression.impression_text) %>
+                    </div>
+                  </div>
+                      <% else %>
+                      <%= simple_format(impression.impression_text) %>
+                     <% end %>
+
+                      <script>
+                        $('.satisfaction_star-rate-<%= impression.id %>').raty({
+                          size: 36,
+                          starOff:  '<%= asset_path('star-off.png') %>',
+                          starOn : '<%= asset_path('star-on.png') %>',
+                          readOnly: true,
+                          score: <%=impression.satisfaction_level %>
+                        });
+
+                        $('.design_star-rate-<%= impression.id %>').raty({
+                          size: 36,
+                          starOff:  '<%= asset_path('star-off.png') %>',
+                          starOn : '<%= asset_path('star-on.png') %>',
+                          readOnly: true,
+                          score: <%=impression.design_evaluation %>
+                        });
+
+                        $('.weight_star-rate-<%= impression.id %>').raty({
+                          size: 36,
+                          starOff:  '<%= asset_path('star-off.png') %>',
+                          starOn : '<%= asset_path('star-on.png') %>',
+                          readOnly: true,
+                          score: <%=impression.weight_evaluation %>
+                        });
+
+                        $('.rigidity_star-rate-<%= impression.id %>').raty({
+                          size: 36,
+                          starOff:  '<%= asset_path('star-off.png') %>',
+                          starOn : '<%= asset_path('star-on.png') %>',
+                          readOnly: true,
+                          score: <%=impression.rigidity_evaluation %>
+                        });
+
+                        $('.comfort_star-rate-<%= impression.id %>').raty({
+                          size: 36,
+                          starOff:  '<%= asset_path('star-off.png') %>',
+                          starOn : '<%= asset_path('star-on.png') %>',
+                          readOnly: true,
+                          score: <%=impression.comfort_evaluation %>
+                        });
+
+                        $('.cp_star-rate-<%= impression.id %>').raty({
+                          size: 36,
+                          starOff:  '<%= asset_path('star-off.png') %>',
+                          starOn : '<%= asset_path('star-on.png') %>',
+                          readOnly: true,
+                          score: <%=impression.cp_evaluation %>
+                        });
+                      </script>
+                      <% if user_signed_in? && current_user.id == impression.user_id %>&emsp;&emsp;
+                        <%= link_to "編集",maker_impression_edit_path(@bike.id,@bike.maker,impression.id), class:"btn btn-success btn-sm" %>&emsp;
+                        <%= link_to "削除", maker_impression_destroy_path(@bike.id,@bike.maker, impression.id), method: :delete, class:"btn btn-danger btn-sm" %>
+                      <% end %>
+                </div>
+
           </div>
-          <h3>インプレッション</h3>
-          <%= link_to "このバイクを編集する", admin_maker_bike_edit_path, class:"btn btn-warning" %>
+        </div>
+      </div>
+        <% end %>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-lg-12">
+              <% if user_signed_in? %>
+                <div class="new_review">
+                  <div class="form-group review-forms">
+                    <h3>新規インプレッション投稿</h3>
+                      <%= form_for([@bike.maker, @bike.id, @impression], url: maker_impression_create_path, html: {method: "post"}) do |f| %>
+                      <div class="form-group" id="satisfaction_star">
+                        <%= f.label :satisfaction_level, '総合評価', class:"col-form-label" %>
+                        <%= f.hidden_field :satisfaction_level,value: @satisfaction_star %>
+                      </div>
+                      <div class="form-group" id="design_star">
+                        <%= f.label :design_evaluation, 'デザイン評価', class:"col-form-label" %>
+                        <%= f.hidden_field :design_evaluation,value: @design_star %>
+                      </div>
+                      <div class="form-group" id="weight_star">
+                        <%= f.label :weight_evaluation, '重量評価', class:"col-form-label" %>
+                        <%= f.hidden_field :weight_evaluation,value: @weight_star %>
+                      </div>
+                      <div class="form-group" id="rigidity_star">
+                        <%= f.label :rigidity_evaluation, '剛性評価', class:"col-form-label" %>
+                        <%= f.hidden_field :rigidity_evaluation,value: @rigidity_star %>
+                      </div>
+                      <div class="form-group" id="comfort_star">
+                        <%= f.label :comfort_evaluation, '快適性評価', class:"col-form-label" %>
+                        <%= f.hidden_field :comfort_evaluation,value: @comfort_star %>
+                      </div>
+                      <div class="form-group" id="cp_star">
+                        <%= f.label :cp_evaluation, 'コストパフォーマンス評価', class:"col-form-label" %>
+                        <%= f.hidden_field :cp_evaluation,value: @cp_star %>
+                      </div>
+                      <%= f.text_field :impression_title, class:"form-control", placeholder: "レビュータイトル" %>
+                      <%= f.text_area :impression_text, class:"form-control", placeholder: "コメントをここに" , :size => "70x10" %><br>
+                      <%= f.submit "送信する",class:"btn btn-danger" %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
-</div>
+
 <%= render "layouts/footer" %>
 
 
@@ -46,3 +207,119 @@
     $('#big-image').attr("src", url);
   });
 </script>
+<script>
+  $('#design_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[design_evaluation]',
+  });
+
+  $('#satisfaction_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[satisfaction_level]',
+  });
+
+  $('#weight_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[weight_evaluation]',
+  });
+
+  $('#rigidity_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[rigidity_evaluation]',
+  });
+
+  $('#comfort_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[comfort_evaluation]',
+  });
+
+  $('#cp_star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'impression[cp_evaluation]',
+  });
+
+  </script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+  <script>
+    $(function(){
+
+
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'radar',
+          data: {
+              labels: ["デザイン", "重量", "剛性", "快適性", "コストパフォーマンス"],
+              datasets: [{
+                  label: 'ユーザーの平均評価',
+                  data: <%= @reviews %>,
+                  backgroundColor: [
+                      'rgba(144, 238, 144, 0.2)',
+                  ],
+                  borderColor: [
+                      'rgba(75, 192, 192, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              title: {
+                fontSize: 25,
+                display: true,
+                text: 'ユーザー評価'
+              },
+              scale: {
+                      ticks: {
+                        stepSize: 1,
+                        suggestedMax: 5,
+                        suggestedMin: 0,
+                        callback: function(value, index, values){
+                        return  value +  'つ星'
+                          beginAtZero:true
+                       }
+                      }
+                }
+              }
+          }
+
+      );
+    })
+  </script>
+
+  <script>
+var itemHeights = [];
+var returnHeight;
+
+$(function(){
+$(".grad-item").each(function(){ //ターゲット(縮めるアイテム)
+var thisHeight = $(this).height(); //ターゲットの高さを取得
+itemHeights.push(thisHeight); //それぞれの高さを配列に入れる
+$(this).addClass("is-hide"); //CSSで指定した高さにする
+returnHeight = $(this).height(); //is-hideの高さを取得
+});
+});
+
+$(".grad-trigger").on({'click':(function(){ //トリガーをクリックしたら
+if(!$(this).hasClass("is-show")) {
+var index = $(this).index(".grad-trigger"); //トリガーが何個目か
+var addHeight = itemHeights[index]; //個数に対応する高さを取得
+$(this).addClass("is-show").next().animate({height: addHeight},200).removeClass("is-hide"); //高さを元に戻す
+} else {
+$(this).removeClass("is-show").next().animate({height: returnHeight},200).addClass("is-hide"); //高さを制限する
+}
+})
+});
+  </script>

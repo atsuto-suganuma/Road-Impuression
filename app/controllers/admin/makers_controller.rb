@@ -1,5 +1,5 @@
 class Admin::MakersController < ApplicationController
-
+before_action :authenticate_admin!
   def index
     @makers = Maker.all
   end

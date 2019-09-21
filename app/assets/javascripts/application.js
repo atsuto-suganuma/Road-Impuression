@@ -67,3 +67,15 @@ $(function(){
     $("#big-image").attr("src", url);
   });
 });
+
+$(function() {
+  $(document).on("ajax:success", ".b-f", function(e) {
+    if ($('#create_favorite').hasClass('like-hide')) {
+      $('#create_favorite').removeClass('like-hide')
+      $('#delete_favorite').addClass('like-hide')
+    } else {
+      $('#delete_favorite').removeClass('like-hide')
+      $('#create_favorite').addClass('like-hide')
+    }
+  })
+});

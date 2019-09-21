@@ -13,10 +13,20 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'root#top'
 
+    get 'search/:genre' => 'bikes#search_genre', as: 'search_genre'
+  
+
   resources :users, only: [:show, :edit, :update, :destroy]
   resources :makers, only: [:index, :show] do
     get 'bikes/:id' => 'bikes#show', as: 'bike_show'
+      post 'bikes/:id' => 'impressions#create', as: 'impression_create'
+      delete 'bikes/:bike_id/impression/:id' => 'impressions#destroy', as: 'impression_destroy'
+      get 'bikes/:bike_id/impression/:id/edit' => 'impressions#edit', as: 'impression_edit'
+      patch 'bikes/:bike_id/impression/:id' => 'impressions#update', as: 'impression_update'
+      post 'bikes/:bike_id/favorite' => 'bike_favorites#create', as: 'bike_favorite_create'
+      delete 'bikes/:bike_id/favorite' => 'bike_favorites#destroy', as: 'bike_favorite_destroy'
   end
+  get 'search' => 'bikes#search_bike', as: 'search_bike'
 
   namespace :admin do
     resources :users, only: [:index, :show, :update, :destroy]
@@ -33,7 +43,7 @@ Rails.application.routes.draw do
         delete 'bikes/:id/years_bikes' => 'years_bikes#destroy', as: 'years_bike_destroy'
   end
 
-    get 'search/:tag' => 'bikes#search_bike', as: 'search_bike'
+    get 'search' => 'bikes#search_bike', as: 'search_bike'
     get 'bikes/new'
     post 'bikes/create'
 

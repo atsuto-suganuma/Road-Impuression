@@ -1,4 +1,4 @@
-<%=render 'layouts/admin-header' %>
+<%=render 'layouts/admin-header', q: @q %>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -24,7 +24,9 @@
                 <%= simple_date(user.current_sign_in_at)%>
               </td>
               <td>
-                <%= user.caution %>
+                <%= form_for user, :url => {:action => :update} do |f| %>
+                <%= f.select :caution, [["違反なし", ""],["注意","オールラウンド"],["警告","エンデュランス"], ["懲戒",""]]%>
+                <% end %>
               </td>
           </tr>
         </tbody>
