@@ -1,4 +1,5 @@
 class Admin::BikesController < ApplicationController
+  before_action :authenticate_admin!
   def new
   	@bike = Bike.new
   end

@@ -4,7 +4,9 @@ class BikesController < ApplicationController
     @bike = Bike.find(params[:id])
     @years_bikes = @bike.years_bikes
     @impression = Impression.new
-    @reviews = [Impression.average(:design_evaluation), Impression.average(:weight_evaluation), Impression.average(:rigidity_evaluation), Impression.average(:comfort_evaluation), Impression.average(:cp_evaluation)]
+    @reviews = [Impression.average(:design_evaluation).floor(1), Impression.average(:weight_evaluation).floor(1), Impression.average(:rigidity_evaluation).floor(1), Impression.average(:comfort_evaluation).floor(1), Impression.average(:cp_evaluation).floor(1)]
+    @review = Impression.find_by(id: params[:id])
+
 
     if params[:year]
     @recent_years_bikes = YearsBike.find_by(year: params[:year] )

@@ -20,11 +20,12 @@ Rails.application.routes.draw do
   resources :makers, only: [:index, :show] do
     get 'bikes/:id' => 'bikes#show', as: 'bike_show'
       post 'bikes/:id' => 'impressions#create', as: 'impression_create'
-      delete 'bikes/:id' => 'impressions#destroy', as: 'impression_destroy'
-      get 'bikes/:id/edit' => 'impressions#edit', as: 'impression_edit'
-      patch 'bikes/:id' => 'impressions#update', as: 'impression_update'
+      delete 'bikes/:bike_id/impression/:id' => 'impressions#destroy', as: 'impression_destroy'
+      get 'bikes/:bike_id/impression/:id/edit' => 'impressions#edit', as: 'impression_edit'
+      patch 'bikes/:bike_id/impression/:id' => 'impressions#update', as: 'impression_update'
+      post 'bikes/:bike_id/favorite' => 'bike_favorites#create', as: 'bike_favorite_create'
+      delete 'bikes/:bike_id/favorite' => 'bike_favorites#destroy', as: 'bike_favorite_destroy'
   end
-  resources :impressions, only: [:create, :edit, :update, :destroy]
   get 'search' => 'bikes#search_bike', as: 'search_bike'
 
   namespace :admin do

@@ -5,6 +5,11 @@ class MakersController < ApplicationController
 
   def show
     @maker = Maker.find(params[:id])
+    if params[:tag_name]
+      @bikes = Bike.tagged_with("#{params[:tag_name]}")
+    else
+     @bikes = @maker.bikes
+    end
   end
   
 end
