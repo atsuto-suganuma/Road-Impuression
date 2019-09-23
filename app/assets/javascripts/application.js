@@ -79,3 +79,25 @@ $(function() {
     }
   })
 });
+
+  $(function() {
+    $(document).on("ajax:success", ".u-f", function(e) {
+      if ($('#' + e.detail[0]).hasClass('fa-star')) {
+        $('#' + e.detail[0]).removeClass('fa-star').addClass('fa-star-o');
+      } else {
+    $('#' + e.detail[0]).removeClass('fa-star-o').addClass('fa-star');
+      }
+    })
+  })
+
+ $(function() {
+  $(document).on("ajax:success", ".m-f", function(e) {
+    if ($('#create_favorite').hasClass('like-hide')) {
+      $('#create_favorite').removeClass('like-hide')
+      $('#delete_favorite').addClass('like-hide')
+    } else {
+      $('#delete_favorite').removeClass('like-hide')
+      $('#create_favorite').addClass('like-hide')
+    }
+  })
+});

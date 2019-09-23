@@ -9,7 +9,7 @@
       </h2>
       <% @years_bikes.each_with_index do |years_bike, i| %>
         <% if (i == 0) %>
-          <%= form_with(url: maker_bike_show_path(@bike.id, @bike.maker_id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
+          <%= form_with(url: maker_bike_path(@bike.id, @bike.maker_id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
             <%= f.collection_select :year, YearsBike.all, :year, :year %>
             <%= f.submit "検索", class:"btn btn-default" %>
           <% end %>
@@ -32,12 +32,12 @@ year=bike.bike=imagesをいーちまわす
       <% @recent_years_bikes.years_bike_images.each_with_index do |years_bike_image, i| %>
         <% if years_bike_image.display_order == 1 %>
           <div class="row small-image-list">
-            <div class="col-sm-3 col-sm-3 small-image">
-              <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image", id:"small1" %>
+            <div class="col-sm-4 col-lg-3 small-image">
+              <%= attachment_image_tag years_bike_image, :image, format:'jpeg',size: "200x125", fallback:"no_image(2).jpg", class:"small-image", id:"small1" %>
             </div>
         <% else %>
-          <div class="col-sm-3 col-sm-3 small-image">
-            <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image" %>
+          <div class="col-sm-4 col-lg-3 small-image">
+            <%= attachment_image_tag years_bike_image, :image, format:'jpeg',size: "200x125", fallback:"no_image(2).jpg", class:"small-image" %>
           </div>
           <% if (i == @recent_years_bikes.years_bike_images.size - 1) %>
           </div>
@@ -49,12 +49,14 @@ year=bike.bike=imagesをいーちまわす
       <h3>バイク概要</h3>
       <%= @recent_years_bikes.year_bike_body %>
     </div>
+    <% if user_signed_in? %>
     <% if @bike.favorited_by?(current_user) %>
-      <%= link_to "このバイクをお気に入り登録する", maker_bike_favorite_create_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
-      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_favorite_destroy_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
+      <%= link_to "このバイクをお気に入り登録する", maker_bike_bike_favorites_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_bike_favorites_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
     <% else %>
-      <%= link_to "このバイクをお気に入り登録する", maker_bike_favorite_create_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
-      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_favorite_destroy_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
+      <%= link_to "このバイクをお気に入り登録する",  maker_bike_bike_favorites_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する",  maker_bike_bike_favorites_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
+    <% end %>
     <% end %>
     <div class="row">
       <div class="col-sm-12 col-lg-12">
@@ -68,8 +70,8 @@ year=bike.bike=imagesをいーちまわす
             <div class="balloon5">
               <div class="faceicon">
                 <%= impression.user.name%>
-                <%= link_to user_path(current_user.id) do %>
-                  <%= attachment_image_tag current_user, :profile_image, format:"jpeg", size:"80x80", fallback: "no_image(1).jpg",:class => "head-user-icon"%>
+                <%= link_to user_path(@user.id) do %>
+                  <%= attachment_image_tag @user, :profile_image, format:"jpeg", size:"80x80", fallback: "no_image(1).jpg",:class => "head-user-icon"%>
                 <% end %>
               </div>
               <div class="chatting">
@@ -142,9 +144,10 @@ year=bike.bike=imagesをいーちまわす
                         });
                       </script>
                       <% if user_signed_in? && current_user.id == impression.user_id %>&emsp;&emsp;
-                        <%= link_to "編集",maker_impression_edit_path(@bike.id,@bike.maker,impression.id), class:"btn btn-success btn-sm" %>&emsp;
-                        <%= link_to "削除", maker_impression_destroy_path(@bike.id,@bike.maker, impression.id), method: :delete, class:"btn btn-danger btn-sm" %>
+                        <%= link_to "編集",edit_maker_bike_impression_path(@bike.maker,@bike.id,impression.id), class:"btn btn-success btn-sm" %>&emsp;
+                        <%= link_to "削除",  maker_bike_impression_path(@bike.maker,@bike.id, impression.id), method: :delete, class:"btn btn-danger btn-sm" %>
                       <% end %>
+
                 </div>
 
           </div>
@@ -158,7 +161,7 @@ year=bike.bike=imagesをいーちまわす
                 <div class="new_review">
                   <div class="form-group review-forms">
                     <h3>新規インプレッション投稿</h3>
-                      <%= form_for([@bike.maker, @bike.id, @impression], url: maker_impression_create_path, html: {method: "post"}) do |f| %>
+                      <%= form_for([@bike.maker, @impression], url: maker_bike_impressions_path(bike_id: @bike.id), html: {method: "post"}) do |f| %>
                       <div class="form-group" id="satisfaction_star">
                         <%= f.label :satisfaction_level, '総合評価', class:"col-form-label" %>
                         <%= f.hidden_field :satisfaction_level,value: @satisfaction_star %>

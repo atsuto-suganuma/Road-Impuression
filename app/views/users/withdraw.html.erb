@@ -1,0 +1,15 @@
+<%= render 'layouts/header',q: @q %>
+<div class="container">
+    <section class="row">
+    	 <section class="col-sm-12 col-lg-12">
+			<div class="alert alert-danger text-center" role="alert">
+				<h2>退会前に必ずお読みください</h2><br>
+				<p >本サイトから退会すると、会員向けサービスが全てご利用いただけなくなります。<br>
+				※インプレッション情報は削除されません。退会後はインプレッションの編集・削除はできなくなります。※<br>
+				必要に応じてインプレッションの編集・削除を行ったうえで退会をお願いします。</p>
+				<%= link_to "削除", user_path(current_user.id), class:"alert-link btn btn-danger", method: :delete, "data-confirm" => "本当に退会しますか？" %>
+			</div>
+		</section>
+ </section>
+</div>
+<%= render "layouts/footer" %>

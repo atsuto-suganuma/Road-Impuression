@@ -25,6 +25,19 @@
   margin: 20px;
 }
 
+.search-window {
+  display: inline-flex;
+  margin-top: 30px;
+}
+
+.search-botton {
+  display: inline-flex;
+}
+
+.bike_search{
+  display: inline-flex;
+}
+
 /*ここからハンバーガーメニュー*/
 #hm-icon{
   position: fixed;
@@ -193,7 +206,13 @@
 .bike-image {
   padding: 10px;
 }
+
 /*bike#show*/
+
+#big-image {
+  text-align: center;
+}
+
 .balloon5 {
   width: 100%;
   margin: 1.5em 0;
@@ -221,10 +240,11 @@
   display: inline-block;
   position: relative;
   margin: 5px 0 0 105px;
-  padding: 17px 13px;
+  padding: 17px 13px 45px 13px;
   border-radius: 12px;
   background: #d7ebfe;
   min-width: 600px;
+  max-width: 600px;
 }
 
 .says:after {
@@ -300,6 +320,10 @@
 
 .like-hide{
   display: none;
+}
+
+.fa-star{
+  color: yellow;
 }
 
 /*USER#SHOW*/

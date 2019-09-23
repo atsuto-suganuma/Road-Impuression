@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-sm-6 col-lg-3">
       <h3>マイページ</h3>
-      <%= attachment_image_tag @user, :profile_image, size: '180x180', fallback: "no_image(1).jpeg", size: '180x180' %>
+      <%= attachment_image_tag @user, :profile_image, size: '180x180', fallback: "no_image(1).jpeg" %>
       <h4><%= @user.name %></h4>
       <div class="favorite">
         <p>参考になった！獲得数 ☆14</p>
@@ -18,11 +18,46 @@
     <div class="row">
       <div class="col-sm-12 col-lg-9">
         <h3>お気に入りバイク</h3>
+        <% @user.bike_favorites.each do |bike_favorite| %>
+        <div class="col-sm-6 col-lg-3">
+        <%= link_to maker_bike_path(bike_favorite.bike.maker_id,bike_favorite.bike.id) do %>
+        <%= attachment_image_tag bike_favorite.bike, :bike_image, size: "150x100", fallback:"no_image(2).jpeg" %>
+        <% end %>
+        <%= bike_favorite.bike.maker.maker_name %>
+        <%= bike_favorite.bike.bike_name %>
+      </div>
+        <% end %>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 col-lg-9">
         <h3>インプレッション一覧</h3>
+        <% @user.impressions.each do |impression| %>
+        <div class="impression-area">
+        <div class="balloon5">
+        <%= link_to maker_bike_path(impression.bike.maker_id,impression.bike.id) do %>
+        <%= attachment_image_tag impression.bike, :bike_image, size: "150x100", fallback:"no_image(2).jpeg" %>
+        <% end %>
+          <div class="chatting">
+            <div class="says" style="max-width: 500px; min-width: 500px;">
+        <%= impression.bike.bike_name %><br>
+        <%= impression.bike.bike_name_kana %></br>
+        <%= impression.impression_title %><br>
+        <p style="display: inline-block;">総合評価：<div class="satisfaction_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
+        <script>
+          $('.satisfaction_star-rate-<%= impression.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            readOnly: true,
+            score: <%=impression.satisfaction_level %>
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+        <% end %>
       </div>
     </div>
     <div class="col-sm-12 col-lg-3">

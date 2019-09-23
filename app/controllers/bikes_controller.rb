@@ -2,7 +2,9 @@ class BikesController < ApplicationController
 
   def show
     @bike = Bike.find(params[:id])
+    @bike_id = @bike.id
     @years_bikes = @bike.years_bikes
+    @user = User.find_by(id: params[:id])
     @impression = Impression.new
     @reviews = [Impression.average(:design_evaluation).floor(1), Impression.average(:weight_evaluation).floor(1), Impression.average(:rigidity_evaluation).floor(1), Impression.average(:comfort_evaluation).floor(1), Impression.average(:cp_evaluation).floor(1)]
     @review = Impression.find_by(id: params[:id])

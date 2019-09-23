@@ -18,9 +18,19 @@ class UsersController < ApplicationController
     else render :edit
     end
   end
+  
+  def withdraw
+    
+  end
+
+  def unsubscride
+    
+  end
 
   def destroy
-  	
+  	@user = User.find(params[:id])
+    @user.destroy
+    redirect_to unsubscride_path
   end
 
 private
