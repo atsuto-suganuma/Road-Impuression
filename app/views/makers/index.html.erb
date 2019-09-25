@@ -1,13 +1,13 @@
 <%=render 'layouts/header', q: @q %>
 <div class="container">
   <div class="row">
-    <div class="col-sm-12, col-xl-12">
+    <div class="col-sm-12, col-lg-12">
       <h2>メーカー一覧</h2>
     </div>
   </div>
   <div class="row">
       <% @makers.each do |maker| %>
-        <div class="col-sm-6 col-xl-4">
+        <div class="col-sm-6 col-lg-4 d-flex justify-content-center align-items-center">
           <%= link_to maker_path(maker.id) do %>
             <%= attachment_image_tag maker, :maker_image, format: 'png', size: "200x100" %><br>
           <% end %>

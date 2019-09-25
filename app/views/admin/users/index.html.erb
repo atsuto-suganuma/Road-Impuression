@@ -3,13 +3,19 @@
   <div class="row">
     <div class="col-xs-12">
       <h2>ユーザー一覧</h2>
+
+       <%= search_form_for(@p, url: admin_users_path, html: {method: "get"}, as: :p) do |f| %>
+        <%= f.label :name, "名前" %>
+        <%= f.search_field :name_cont %>
+        <%= f.submit "検索" %>
+      <% end %>
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
-            <th>ユーザー名</th>
+            <th><%= sort_link(@q, :name, "ユーザー名") %></th>
+            <th>メールアドレス</th>
             <th>最終ログイン日</th>
             <th>警告回数</th>
-            <th>備考</th>
           </tr>
         </thead>
         <tbody>
@@ -21,11 +27,14 @@
                 <% end %>
               </td>
               <td>
-                <%= simple_date(user.current_sign_in_at)%>
+                <%= user.email %>
               </td>
               <td>
-                <%= form_for user, :url => {:action => :update} do |f| %>
-                <%= f.select :caution, [["違反なし", ""],["注意","オールラウンド"],["警告","エンデュランス"], ["懲戒",""]]%>
+                <%= user.current_sign_in_at.strftime("%Y/%m/%d/ %H:%M")%>
+              </td>
+              <td>
+                <%= form_for([user], url: admin_user_path(user.id), html: {method: "patch"}) do |f| %>
+                <%= f.select :caution, [["違反なし", "normal"],["注意","caution"],["警告","warning"], ["懲戒","discipline"]]%>
                 <% end %>
               </td>
           </tr>

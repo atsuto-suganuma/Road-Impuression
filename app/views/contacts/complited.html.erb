@@ -1,0 +1,14 @@
+<%= render 'layouts/header',q: @q %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+    <h2 class="text-center">お問い合わせを承りました。</h2><br>
+    <p class="text-center">
+      内容確認後、管理者よりご連絡をいたします。お返事まで数日いただく場合がございます。<br>
+  お手数ですがご返信まで少々お待ちください。</p>
+  <br>
+  <% link_to "TOPページへ戻る", root_path, class:"btn btn-primary" %>
+</div>
+</div>
+</div>
+<%= render "layouts/footer" %>

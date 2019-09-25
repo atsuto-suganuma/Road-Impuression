@@ -1,0 +1,2 @@
+module MakerFavoritesHelper
+end

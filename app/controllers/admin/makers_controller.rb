@@ -22,7 +22,7 @@ before_action :authenticate_admin!
     if params[:tag_name]
       @bikes = Bike.tagged_with("#{params[:tag_name]}")
     else
-     @bikes = @maker.bikes
+     @bikes = @maker.bikes.page(params[:page]).per(30)
     end
   end
   def edit

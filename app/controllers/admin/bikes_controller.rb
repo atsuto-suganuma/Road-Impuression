@@ -15,7 +15,9 @@ class Admin::BikesController < ApplicationController
 
   def show
     @bike = Bike.find(params[:id])
-    # @years_bike = @bike.years_bikes
+    @user = User.find_by(id: params[:id])
+    @impressions = @bike.impressions.page(params[:page]).per(10)
+    @reviews = [@bike.impressions.average(:design_evaluation), @bike.impressions.average(:weight_evaluation), @bike.impressions.average(:rigidity_evaluation), @bike.impressions.average(:comfort_evaluation), @bike.impressions.average(:cp_evaluation)]
   end
 
   def edit
@@ -31,14 +33,23 @@ class Admin::BikesController < ApplicationController
     end
   end
 
+  def destroy
+    @bike = Bike.find(params[:id])
+    @maker = @bike.maker
+    @bike.destroy
+    redirect_to admin_maker_path(@maker)
+  end
+
     def search_bike
     if params[:tag_name]
        @bikes = Bike.tagged_with("#{params[:tag_name]}")
+    elsif params[:q].nil?
+      @bikes = Bike.page(params[:page]).per(50)
     else
        @q = Bike.includes(:maker, :years_bikes).ransack(search_params)
-       @bikes = @q.result(distinct: true)
+       @bikes = @q.result(distinct: true).page(params[:page]).per(50)
     end
-    end
+  end
 
   # def search_bike
 

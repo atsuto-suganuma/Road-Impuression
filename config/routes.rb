@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'contacts/new'
+  get 'contacts/create'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
     passwords: 'admins/passwords'
@@ -14,19 +16,29 @@ Rails.application.routes.draw do
   root 'root#top'
 
     get 'search/:genre' => 'bikes#search_genre', as: 'search_genre'
-  
+
+    get 'users/withdraw' => 'users#withdraw', as: 'withdraw'
+    get 'users/unsubscribe' => 'users#unsubscride', as: 'unsubscride'
+    get 'about', to: 'root#about'
+    get 'privacy_policy',to:'root#privacy_policy'
+    get 'terms_of_service', to: 'root#terms_of_service'
+    get 'complited', to: 'contacts#complited', as: 'complited'
+  resources :contacts, only:[:new, :create]
 
   resources :users, only: [:show, :edit, :update, :destroy]
   resources :makers, only: [:index, :show] do
-    get 'bikes/:id' => 'bikes#show', as: 'bike_show'
-      post 'bikes/:id' => 'impressions#create', as: 'impression_create'
-      delete 'bikes/:bike_id/impression/:id' => 'impressions#destroy', as: 'impression_destroy'
-      get 'bikes/:bike_id/impression/:id/edit' => 'impressions#edit', as: 'impression_edit'
-      patch 'bikes/:bike_id/impression/:id' => 'impressions#update', as: 'impression_update'
-      post 'bikes/:bike_id/favorite' => 'bike_favorites#create', as: 'bike_favorite_create'
-      delete 'bikes/:bike_id/favorite' => 'bike_favorites#destroy', as: 'bike_favorite_destroy'
+    resources :maker_favorites, only:[:create, :destroy]
+
+    resources :bikes, only:[:show] do
+      resources :impressions, only:[:create, :destroy, :edit, :update]
+      resource :bike_favorites, only:[:create, :destroy]
+    end
   end
   get 'search' => 'bikes#search_bike', as: 'search_bike'
+
+    if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
   namespace :admin do
     resources :users, only: [:index, :show, :update, :destroy]
@@ -47,11 +59,8 @@ Rails.application.routes.draw do
     get 'bikes/new'
     post 'bikes/create'
 
-    resources :impressions, only: [:index, :destroy]
+    resources :impressions, only: [:destroy]
 
-    resources :threads, only: [:index, :show, :destroy] do
-      resource :comments, only: [:destroy]
-    end
   end
 
 end

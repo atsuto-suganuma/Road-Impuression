@@ -9,7 +9,7 @@
       </h2>
       <% @years_bikes.each_with_index do |years_bike, i| %>
         <% if (i == 0) %>
-          <%= form_with(url: maker_bike_show_path(@bike.id, @bike.maker_id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
+          <%= form_with(url: maker_bike_path(@bike.id, @bike.maker_id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
             <%= f.collection_select :year, YearsBike.all, :year, :year %>
             <%= f.submit "検索", class:"btn btn-default" %>
           <% end %>
@@ -23,7 +23,7 @@
 year=bike.bike=imagesをいーちまわす
 それぞれの年度ごとのバイクの画像表示 -->
       <div class="row">
-        <div class="col-sm-12 col-lg-12">
+        <div class="col-sm-12 col-lg-12" style="text-align: center;">
           <img id="big-image" src="" style="width:800px; height:500px;">
         </div>
       </div>
@@ -31,13 +31,13 @@ year=bike.bike=imagesをいーちまわす
 
       <% @recent_years_bikes.years_bike_images.each_with_index do |years_bike_image, i| %>
         <% if years_bike_image.display_order == 1 %>
-          <div class="row small-image-list">
-            <div class="col-sm-3 col-sm-3 small-image">
-              <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image", id:"small1" %>
+          <div class="row small-image-list" style="text-align: center">
+            <div class="col-sm-4 col-lg-3 small-image">
+              <%= attachment_image_tag years_bike_image, :image, format:'jpeg',size: "200x125", fallback:"no_image(2).jpg", class:"small-image", id:"small1" %>
             </div>
         <% else %>
-          <div class="col-sm-3 col-sm-3 small-image">
-            <%= attachment_image_tag years_bike_image, :image, format:'jpeg', fallback:"no_image(2).jpg", class:"small-image" %>
+          <div class="col-sm-4 col-lg-3 small-image">
+            <%= attachment_image_tag years_bike_image, :image, format:'jpeg',size: "200x125", fallback:"no_image(2).jpg", class:"small-image" %>
           </div>
           <% if (i == @recent_years_bikes.years_bike_images.size - 1) %>
           </div>
@@ -49,13 +49,16 @@ year=bike.bike=imagesをいーちまわす
       <h3>バイク概要</h3>
       <%= @recent_years_bikes.year_bike_body %>
     </div>
+    <% if user_signed_in? %>
     <% if @bike.favorited_by?(current_user) %>
-      <%= link_to "このバイクをお気に入り登録する", maker_bike_favorite_create_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
-      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_favorite_destroy_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
+      <%= link_to "このバイクをお気に入り登録する", maker_bike_bike_favorites_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_bike_favorites_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
     <% else %>
-      <%= link_to "このバイクをお気に入り登録する", maker_bike_favorite_create_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
-      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_favorite_destroy_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
+      <%= link_to "このバイクをお気に入り登録する",  maker_bike_bike_favorites_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する",  maker_bike_bike_favorites_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
     <% end %>
+    <% end %>
+  </div>
     <div class="row">
       <div class="col-sm-12 col-lg-12">
         <h3>インプレッション</h3>
@@ -65,16 +68,16 @@ year=bike.bike=imagesをいーちまわす
         <h3>レビュー詳細</h3>
         <% @bike.impressions.each do |impression| %>
           <div class="impression-area">
-            <div class="balloon5">
-              <div class="faceicon">
+            <div class="balloon5 d-flex">
+              <div>
                 <%= impression.user.name%>
-                <%= link_to user_path(current_user.id) do %>
-                  <%= attachment_image_tag current_user, :profile_image, format:"jpeg", size:"80x80", fallback: "no_image(1).jpg",:class => "head-user-icon"%>
+                <%= link_to user_path(impression.user.id) do %>
+                  <%= attachment_image_tag impression.user, :profile_image, format:"jpeg", size:"80x80", fallback: "no_image(1).jpg",:class => "head-user-icon"%>
                 <% end %>
               </div>
               <div class="chatting">
                 <div class="says">
-                  <b><%= impression.impression_title %></b><br>
+                  <b><%= impression.impression_title %></b>　　　　　　　　　　　　　　　　　　　　<%= impression.created_at.strftime("%Y/%m/%d/ %H:%M") %><br>
                     <p style="display: inline-block;">総合評価：<div class="satisfaction_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
                       <p style="display: inline-block;">デザイン評価：<div class="design_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
                       <p style="display: inline-block;">重量評価：<div class="weight_star-rate-<%= impression.id %>" style="display: inline-block;"></div></p>
@@ -142,23 +145,26 @@ year=bike.bike=imagesをいーちまわす
                         });
                       </script>
                       <% if user_signed_in? && current_user.id == impression.user_id %>&emsp;&emsp;
-                        <%= link_to "編集",maker_impression_edit_path(@bike.id,@bike.maker,impression.id), class:"btn btn-success btn-sm" %>&emsp;
-                        <%= link_to "削除", maker_impression_destroy_path(@bike.id,@bike.maker, impression.id), method: :delete, class:"btn btn-danger btn-sm" %>
+                        <%= link_to "編集",edit_maker_bike_impression_path(@bike.maker,@bike.id,impression.id), class:"btn btn-success btn-sm" %>&emsp;
+                        <%= link_to "削除",  maker_bike_impression_path(@bike.maker,@bike.id, impression.id), method: :delete, class:"btn btn-danger btn-sm" %>
                       <% end %>
+
                 </div>
 
           </div>
         </div>
       </div>
         <% end %>
-          </div>
+        <%= paginate @impressions, class: "paginate" %>
+      </div>
+    </div>
           <div class="row">
             <div class="col-sm-12 col-lg-12">
               <% if user_signed_in? %>
-                <div class="new_review">
-                  <div class="form-group review-forms">
-                    <h3>新規インプレッション投稿</h3>
-                      <%= form_for([@bike.maker, @bike.id, @impression], url: maker_impression_create_path, html: {method: "post"}) do |f| %>
+              <h3>新規インプレッション投稿</h3>
+                <div class="new_review" style="margin-left: 100px;">
+                  <div class="form-group review-form">
+                      <%= form_for([@bike.maker, @impression], url: maker_bike_impressions_path(bike_id: @bike.id), html: {method: "post"}) do |f| %>
                       <div class="form-group" id="satisfaction_star">
                         <%= f.label :satisfaction_level, '総合評価', class:"col-form-label" %>
                         <%= f.hidden_field :satisfaction_level,value: @satisfaction_star %>
@@ -183,9 +189,9 @@ year=bike.bike=imagesをいーちまわす
                         <%= f.label :cp_evaluation, 'コストパフォーマンス評価', class:"col-form-label" %>
                         <%= f.hidden_field :cp_evaluation,value: @cp_star %>
                       </div>
-                      <%= f.text_field :impression_title, class:"form-control", placeholder: "レビュータイトル" %>
+                      <%= f.text_field :impression_title, class:"form-control impression-title", placeholder: "レビュータイトル" %>
                       <%= f.text_area :impression_text, class:"form-control", placeholder: "コメントをここに" , :size => "70x10" %><br>
-                      <%= f.submit "送信する",class:"btn btn-danger" %>
+                      <%= f.submit "送信する",class:"btn btn-danger", name: "impression-create" %>
                     <% end %>
                   </div>
                 </div>
@@ -193,9 +199,8 @@ year=bike.bike=imagesをいーちまわす
             </div>
           </div>
       </div>
-    </div>
-  </div>
 
+<%= render 'layouts/page-up' %>
 <%= render "layouts/footer" %>
 
 
@@ -323,3 +328,48 @@ $(this).removeClass("is-show").next().animate({height: returnHeight},200).addCla
 })
 });
   </script>
+<script>
+  $(function(){
+    $(document).on('click', 'input[name = impression-create]', function() {
+        // バリデーション
+        let value1 = document.getElementsByName("impression[satisfaction_level]")
+        let value2 = document.getElementsByName("impression[design_evaluation]")
+        let value3 = document.getElementsByName("impression[weight_evaluation]")
+        let value4 = document.getElementsByName("impression[rigidity_evaluation]")
+        let value5 = document.getElementsByName("impression[comfort_evaluation]")
+        let value6 = document.getElementsByName("impression[cp_evaluation]")
+      if (value1[1].value === '') {
+        alert('総合評価が未入力です');
+        return false;
+      }
+      if (value2[1].value === '') {
+        alert('デザイン評価が未入力です');
+        return false;
+      }
+      if (value3[1].value === '') {
+        alert('重量評価が未入力です');
+        return false;
+      }
+      if (value4[1].value === '') {
+        alert('剛性評価が未入力です');
+        return false;
+      }
+      if (value5[1].value === '') {
+        alert('快適性評価が未入力です');
+        return false;
+      }
+      if (value6[1].value === '') {
+        alert('コストパフォーマンス評価が未入力です');
+        return false;
+      }
+      if ($('#impression_impression_title').val() == '') {
+        alert('未入力の項目があります');
+        return false;
+      }
+      if ($('#impression_impression_text').val() == '') {
+        alert('未入力の項目があります');
+        return false;
+      }
+    });
+})
+</script>

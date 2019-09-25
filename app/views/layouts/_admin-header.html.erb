@@ -1,5 +1,5 @@
-<body>
-<header class="navbar navbar-expand-sm" style="background-color: #f000;">
+
+<header class="navbar navbar-expand-sm header" style="background-color: #FFFFFF;">
   <nav class="nav navbar-nav bavbar-left">
     <%= link_to admin_users_path do %>
       <%= image_tag "logo.png",size: "200x100", :class => "logo-img" %>
@@ -7,20 +7,16 @@
     <h1 class="header-title">管理者ページ</h1>
     <ul class="nav navbar-nav">
           <%= search_form_for(q, url: admin_search_bike_path, html: {method: "get"}) do |f| %>
-            <%= f.search_field :bike_name_or_bike_name_kana_or_maker_maker_name_or_genre_cont, placeholder: 'メーカー名またはバイク名で検索', class:"form-control" %>
-            <%= f.submit "検索", class:"btn btn-default" %>
+            <%= f.search_field :bike_name_or_bike_name_kana_or_maker_maker_name_or_genre_cont, placeholder: 'メーカー名またはバイク名で検索', class:"form-control search-window" %>
+            <%= f.submit "検索", class:"btn btn-default search-botton" %>
             <% end %>
       <div id="sp-menu">
+        <h3 class="text-center" style="margin-top: 30px;">MENU</h3>
         <li>
           <%= link_to "ユーザー一覧", admin_users_path, class:"hm-link text-center" %>
         </li>
         <li>
           <%= link_to "メーカー一覧", admin_makers_path, class:"hm-link text-center" %>
-        </li>
-        <li>
-          <%= link_to "インプレッション一覧", admin_impressions_path, class:"hm-link text-center" %></li>
-        <li>
-          <%= link_to "掲示板一覧", admin_threads_path, class:"hm-link text-center" %>
         </li>
         <li>
           <%= link_to "メーカー新規登録", new_admin_maker_path, class:"hm-link text-center" %>
@@ -42,4 +38,3 @@
    <% end %>
   </div>
 </header>
-</body>

@@ -1,43 +1,54 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<body>
+<section class="slice slice-lg sct-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+                <div class="form-user style-1 rounded has-shadow-1">
+                    <div class="form-header">
+                        <h3 class="form-header-title  text-center">パスワードを変更する</h3></div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+                      <div class="form-body">
+                        <div class="row">
+                        <div class="col-xs-12">
+                          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+                          <div class="form-group has-icon">
+                            <label class="control-label" for="inputfmail">現在のメールアドレス</label>
+                            <%= f.email_field :email, autofocus: true, class:"form-control", id:"inputemail", placeholder:"現在のメールアドレス"%>
+                          </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+                          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                          <% end %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
+                          <div class="form-group has-icon">
+                            <label class="control-label" for="inputpassword">新しいパスワード</label>
+                            <% if @minimum_password_length %>
+                              <em>(<%= @minimum_password_length %>桁以上)</em>
+                              <% end %>
+                            <%= f.password_field :password, autocomplete: "new-password" , class:"form-control", id:"inputpassword", placeholder:"パスワード"%>
+                          </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
+                          <div class="form-group has-icon">
+                            <label class="control-label sr-only" for="inputpassword_confirmation">password_confirmation</label>
+                            <%= f.password_field :password_confirmation, autocomplete: "new-password" , class:"form-control", id:"inputpassword_confirmation", placeholder:"確認用パスワード"%>
+                          </div>
 
-<h3>Cancel my account</h3>
+                          <div class="form-group has-icon">
+                            <label class="control-label" for="inputpassword_confirmation">現在のパスワード</label>
+                            <%= f.password_field :current_password, autocomplete: "current_password" , class:"form-control", id:"inputpassword_confirmation", placeholder:"変更するには現在のパスワードが必要です"%>
+                          </div>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+                           <%= f.submit "パスワードを変更する", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
+                      <% end %>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>

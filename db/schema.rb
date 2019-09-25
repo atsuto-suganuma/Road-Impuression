@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_032212) do
+ActiveRecord::Schema.define(version: 2019_09_24_073440) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -48,6 +48,14 @@ ActiveRecord::Schema.define(version: 2019_09_19_032212) do
     t.string "title"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string "email"
+    t.text "message"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "impressions", force: :cascade do |t|
     t.integer "user_id"
     t.integer "bike_id"
@@ -62,6 +70,13 @@ ActiveRecord::Schema.define(version: 2019_09_19_032212) do
     t.string "datetime"
     t.string "impression_title"
     t.integer "satisfaction_level"
+  end
+
+  create_table "maker_favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "maker_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "makers", force: :cascade do |t|
@@ -129,7 +144,6 @@ ActiveRecord::Schema.define(version: 2019_09_19_032212) do
   create_table "years_bike_images", force: :cascade do |t|
     t.text "image_id"
     t.integer "display_order"
-    t.integer "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "years_bike_id"

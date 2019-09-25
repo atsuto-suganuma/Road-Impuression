@@ -92,6 +92,7 @@ ja:
         middle: "ミドル"
         highend: "ハイエンド"
         flagship: "フラグシップ"
+    user:
       caution:
         normal: "違反なし"
         caution: "注意"

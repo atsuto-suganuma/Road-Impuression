@@ -28,7 +28,8 @@
         <%= bike.bike_name_kana %>
       </div>
     <% end %>
+    <%= paginate @bikes, class: "paginate" %>
   </div>
 </div>
-
+<%= render 'layouts/page-up' %>
 <%= render "layouts/footer" %>
