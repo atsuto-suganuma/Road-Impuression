@@ -14,7 +14,7 @@
                           <%= form_for(@user) do |f| %>
                           <div class="form-group has-icon text-center">
                             <label class="control-label sr-only" for="inputfhandlename"></label>
-                            <%= attachment_image_tag @user, :profile_image,fallback: "no_image(1).jpg",  size:"150x150" %>
+                            <%= attachment_image_tag @user, :profile_image,fallback: "/images/no_image(1).jpg",  size:"150x150" %>
                             <%= f.attachment_field :profile_image %>
                           </div>
 

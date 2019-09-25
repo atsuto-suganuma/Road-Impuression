@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-6 col-lg-3">
         <h3>マイページ</h3>
-        <%= attachment_image_tag @user, :profile_image, size: '180x180', fallback: "no_image(1).jpeg" %>
+        <%= attachment_image_tag @user, :profile_image, size: '180x180', fallback: "/images/no_image(1).jpeg" %>
           <h4 class="text-center">
             <%= @user.name %>
           </h4>
@@ -26,7 +26,7 @@
             <% @user.bike_favorites.each do |bike_favorite| %>
               <div class="col-sm-6 col-lg-4">
                 <%= link_to maker_bike_path(bike_favorite.bike.maker_id,bike_favorite.bike.id) do %>
-                  <%= attachment_image_tag bike_favorite.bike, :bike_image, size: "150x100", fallback:"no_image(2).jpeg" %>
+                  <%= attachment_image_tag bike_favorite.bike, :bike_image, size: "150x100", fallback:"/images/no_image(2).jpeg" %>
                     <% end %>
                       <%= bike_favorite.bike.maker.maker_name %>
                         <%= bike_favorite.bike.bike_name %>
@@ -45,7 +45,7 @@
           <div class="impression-area">
             <div class="balloon5 d-flex">
               <%= link_to admin_maker_bike_show_path(impression.bike.maker_id,impression.bike.id) do %>
-                <%= attachment_image_tag impression.bike, :bike_image, size: "150x100", fallback:"no_image(2).jpeg" %>
+                <%= attachment_image_tag impression.bike, :bike_image, size: "150x100", fallback:"/iamges/no_image(2).jpeg" %>
                   <% end %>
                     <div class="chatting">
                       <div class="says" style="max-width: 500px; min-width: 500px;">
@@ -60,8 +60,8 @@
                                 <script>
                                   $('.satisfaction_star-rate-<%= impression.id %>').raty({
                                     size: 36,
-                                    starOff:  '<%= asset_path('star-off.png') %>',
-                                    starOn : '<%= asset_path('star-on.png') %>',
+                                    starOff:  '<%= asset_path('/images/star-off.png') %>',
+                                    starOn : '<%= asset_path('/images/star-on.png') %>',
                                     readOnly: true,
                                     score: <%=impression.satisfaction_level %>
                                   });
