@@ -1,7 +1,7 @@
 class ImpressionsController < ApplicationController
 
   def create
-    bike = Bike.find(params[:format])
+    bike = Bike.find(params[:bike_id])
     impression = current_user.impressions.new(impression_params)
     impression.bike_id = bike.id
     if impression.save

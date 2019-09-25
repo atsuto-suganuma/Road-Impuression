@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
+    @impressions = @user.impressions.page(params[:page]).per(10)
   end
 
   def edit
     @user = User.find(params[:id])
     if @user.id != current_user.id
-       redirect_to users_path(current_user)
+       redirect_to user_path(current_user.id)
     end
   end
 

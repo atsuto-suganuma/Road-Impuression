@@ -1,6 +1,7 @@
 <%= render 'layouts/header',q: @q %>
 
   <div class="body">
+    <div class="padding-zone"></div>
     <div class="container1">
       <div id="theTarget">
         <div class="image1"></div>
@@ -21,11 +22,11 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-12 col-lg-9">
+      <div class="col-sm-12 col-lg-12">
         <h2 class="index-title">メーカーから選ぶ</h2>
         <div class="row">
-          <% @makers.each do |maker| %>
-            <div class="col-sm-6 col-lg-4">
+          <% @makers.each_with_index do |maker,i| %>
+            <div class="col-sm-6 col-lg-4 d-flex justify-content-center align-items-center">
               <%= link_to maker_path(maker.id) do %>
                 <%= attachment_image_tag maker, :maker_image, format: 'png', size: "200x100" %>
               <% end %>
@@ -33,22 +34,24 @@
           <% end %>
         </div>
         <h2 class="index-title">タイプから選ぶ</h2>
-        <div class="bike-type">
-          <ul class="list">
+        <div class="row">
+            <div class="col-sm-4 col-lg-4 d-flex justify-content-center align-items-center">
             <%= link_to search_genre_path(0) do %>
-               <li class="bikes aero">エアロロード</li>
+               <div class="bikes aero">エアロロード</div>
+             </div>
             <% end %>
+            <div class="col-sm-4 col-lg-4 d-flex justify-content-center align-items-center">
             <%= link_to search_genre_path(1) do %>
-              <li class="bikes all-round">オールラウンド</li>
+              <div class="bikes all-round">オールラウンド</div>
             <% end %>
+            </div>
+            <div class="col-sm-4 col-lg-4 d-flex justify-content-center align-items-center">
             <%= link_to search_genre_path(2) do %>
-              <li class="bikes endurance">エンデュランス</li>
+              <div class="bikes endurance">エンデュランス</div>
             <% end %>
-          </ul>
+          </div>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-12 col-lg-3">
-        <h3>サイドバーです</h3>
       </div>
     </div>
     </div>

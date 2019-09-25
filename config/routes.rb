@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'contacts/new'
+  get 'contacts/create'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
     passwords: 'admins/passwords'
@@ -20,7 +22,8 @@ Rails.application.routes.draw do
     get 'about', to: 'root#about'
     get 'privacy_policy',to:'root#privacy_policy'
     get 'terms_of_service', to: 'root#terms_of_service'
-  
+    get 'complited', to: 'contacts#complited', as: 'complited'
+  resources :contacts, only:[:new, :create]
 
   resources :users, only: [:show, :edit, :update, :destroy]
   resources :makers, only: [:index, :show] do
@@ -32,6 +35,10 @@ Rails.application.routes.draw do
     end
   end
   get 'search' => 'bikes#search_bike', as: 'search_bike'
+
+    if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
   namespace :admin do
     resources :users, only: [:index, :show, :update, :destroy]
@@ -52,11 +59,8 @@ Rails.application.routes.draw do
     get 'bikes/new'
     post 'bikes/create'
 
-    resources :impressions, only: [:index, :destroy]
+    resources :impressions, only: [:destroy]
 
-    resources :threads, only: [:index, :show, :destroy] do
-      resource :comments, only: [:destroy]
-    end
   end
 
 end

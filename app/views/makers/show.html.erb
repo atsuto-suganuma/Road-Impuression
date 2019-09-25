@@ -32,13 +32,14 @@
       <div class="col-sm-6 col-lg-3 bike-image">
         <%= render "bikes/tag-list", tag_list: bike.tag_list, maker: @maker %><br>
         <%= link_to maker_bike_path(bike.maker_id,bike.id) do %>
-          <%= attachment_image_tag bike, :bike_image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg", size:"200x125" %><br>
+          <%= attachment_image_tag bike, :bike_image, format:'jpeg', size: "200x125", fallback:"no_image(2).jpg" %><br>
         <% end %>
-        <%= bike.bike_name %><br>
-        <%= bike.bike_name_kana %>
+        <p class="text-center"><%= bike.bike_name %></p>
+        <p class="text-center" style="font-size: 13px;"><%= bike.bike_name_kana %></p>
       </div>
     <% end %>
+    <%= paginate @bikes, class: "paginate" %>
   </div>
 </div>
-
+<%= render 'layouts/page-up' %>
 <%= render "layouts/footer" %>

@@ -78,4 +78,4 @@ gem 'country_select'
 gem 'simple_form'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'flag_icon_css_rails'
-
+gem 'letter_opener_web'

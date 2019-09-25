@@ -8,7 +8,7 @@
 # coding: utf-8
 
 # Adminの初期設定
-Admin.find_or_create_by(id: 1) do |admin|
-  admin.email = '86strikepackage@gmail.com'
-  admin.password = 'mitsubishif-2'
-end
+Admin.create!(email: 'roadimpression@gmail.com',
+  password: 'dmmwebcamp07'
+  )
+

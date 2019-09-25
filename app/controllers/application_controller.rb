@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def set_search
     if params[:q].nil?
-      @q = Bike.ransack
+     @q = Bike.includes(:maker, :years_bikes).ransack
     else
       @q = Bike.includes(:maker, :years_bikes).ransack(search_params)
     end

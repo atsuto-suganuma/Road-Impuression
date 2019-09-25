@@ -34,7 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
 
       t.string :name
       t.string :profile_image_id
-      t.text :introduction
+      t.text :introduction, default: "よろしくお願いします。"
       t.datetime :created_at
       t.datetime :updated_at
       t.datetime :current_sign_in_at

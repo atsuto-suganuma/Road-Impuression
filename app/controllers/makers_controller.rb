@@ -1,6 +1,6 @@
 class MakersController < ApplicationController
   def index
-    @maker = Maker.all
+    @makers = Maker.all
   end
 
   def show
@@ -8,7 +8,7 @@ class MakersController < ApplicationController
     if params[:tag_name]
       @bikes = Bike.tagged_with("#{params[:tag_name]}")
     else
-     @bikes = @maker.bikes
+     @bikes = @maker.bikes.page(params[:page]).per(30)
     end
   end
   

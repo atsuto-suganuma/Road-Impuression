@@ -16,7 +16,29 @@
  */
  @import "bootstrap";
 
+ *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ .clearfix::after{
+  /*要素内（箱）の特定の文字や行に対してスタイルの指定や文字、写真の追加ができる*/
+  content:"";/*追加するコンテンツを指定する。左記のように記入すると空白の要素を入れる。*/
+  display: block;/*ブロック要素を指定する。*/
+  clear:both;/*float要素を解除する。*/
+}
+
+
 /*ヘッダー*/
+.header {
+  left:0;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:24;
+}
+
 .head-user-icon {
     border-radius: 50%;
 }
@@ -110,6 +132,13 @@
   font-weight: bold;
 }
 /*ここまでハンバーガーメニュー*/
+.container{
+  padding-top: 130px;
+}
+
+.padding-zone{
+  padding: 50px 0;
+}
 
 /*ここからスキッパー*/
 .container1{
@@ -179,6 +208,7 @@
   position: fixed;
   right: 20px;
   bottom: 20px;
+  display: block;
 }
 
 #back img{
@@ -187,6 +217,19 @@
 .image_size{
 	display: block;
     margin: 50px;
+}
+
+#back:before {
+  content:'\25B2';
+  position:absolute;
+  top:10px;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:20px;
+}
+#back:hover {
+  opacity:0.7;
 }
 /*ここまでページアップ*/
 
@@ -326,11 +369,15 @@
   color: yellow;
 }
 
+.impression-title{
+  margin-bottom: 30px;
+}
+
 /*USER#SHOW*/
 .callout1-left {
   position: relative;
   display: inline-block;
-  margin: 1.5em 0 1.5em 15px;
+  margin: 40px 0 1.5em 15px;
   padding: 7px 10px;
   min-width: 120px;
   max-width: 100%;
@@ -352,4 +399,50 @@
 .callout1-left p {
   margin: 0;
   padding: 0;
+}
+
+.about{
+  color:white;
+  margin: 10px;
+}
+
+
+/*root#about*/
+
+.bike-style{
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.ca {
+  width: 200px;
+  height: 150px;
+  float: left;
+  margin: 10px;
+}
+
+.race {
+  background-image: url(cannondale-systemsix-race.jpg);
+  background-size:cover;
+  background-position:center;
+}
+.tooling {
+  background-image: url(cannondale-supersixevo-tooling.jpg);
+  background-size:cover;
+  background-position:center;
+}
+.arban {
+  background-image: url(cannondale-caad13-arban.jpg);
+  background-size:cover;
+  background-position:center;
+}
+
+
+.paginate {
+  text-align: center;
+}
+
+.b-f{
+  margin: 30px;
 }

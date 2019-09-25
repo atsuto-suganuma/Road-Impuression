@@ -33,6 +33,11 @@ class Admin::YearsBikesController < ApplicationController
   end
 
   def destroy
+    @years_bike = YearsBike.find(params[:id])
+    @bike = @years_bike.bike
+    @years_bike.destroy
+    redirect_to admin_maker_bike_show_path(@bike.maker_id,@bike.id)
+
   end
 
 private

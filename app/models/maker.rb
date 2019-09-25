@@ -8,7 +8,7 @@ class Maker < ApplicationRecord
   end
 
   validates :maker_name, presence: true
-  validates :maker_image_id, presence: true
+  validates :maker_image, presence: true
   validates :body, presence: true
   validates :country, presence: true
 
