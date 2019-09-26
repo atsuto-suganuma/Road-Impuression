@@ -4,8 +4,8 @@ ActionMailer::Base.smtp_settings = {
   address: 'smtp.gmail.com',
   domain: 'gmail.com',
   port: 587,
-  user_name: 'roarimpression@gmail.com',
-  password: 'dmmwebcamp07',
+  user_name: 'roadimpression@gmail.com',
+  password: 'nnamvwgktudngaep',
   authentication: 'plain',
   enable_starttls_auto: true
  }
