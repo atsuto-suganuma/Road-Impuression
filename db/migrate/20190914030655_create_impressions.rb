@@ -4,11 +4,11 @@ class CreateImpressions < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.integer :bike_id
       t.text :impression_text
-      t.integer :design_evaluation
-      t.integer :weight_evaluation
-      t.integer :rigidity_evaluation
-      t.integer :comfort_evaluation
-      t.integer :cp_evaluation
+      t.integer :design_evaluation, defaule: 3
+      t.integer :weight_evaluation, default: 3
+      t.integer :rigidity_evaluation, default: 3
+      t.integer :comfort_evaluation, default: 3
+      t.integer :cp_evaluation, default: 3
       t.datetime :created_at
       t.string :updated_at
       t.string :datetime

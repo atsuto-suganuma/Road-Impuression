@@ -15,4 +15,3 @@ class UserFavoritesController < ApplicationController
   end
   
 end
-end
