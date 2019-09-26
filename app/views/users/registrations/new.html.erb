@@ -29,7 +29,7 @@
                 <label class="control-label sr-only" for="inputemail">Email</label>
                 <%= f.email_field :email, autofocus: true, class:"form-control", id:"inputemail", placeholder:"メールアドレス" %>
               </div>
-
+              <%= f.hidden_field :introduction, :value => "よろしくお願いします。" %>
               <div class="form-group has-icon">
                 <label class="control-label sr-only" for="inputpassword"></label>
                 <% if @minimum_password_length %>
