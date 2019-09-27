@@ -14,7 +14,26 @@
             <%= simple_format@user.introduction %>
           </p>
         </div>
+        <% if user_signed_in? %>
         <%= link_to "編集", edit_user_path(@user.id), class:"btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <h3>お気に入りメーカー</h3>
+        <% if @user.maker_favorites.empty? %>
+        <br><h5>お気に入りメーカーはありません。<br> 気に入ったメーカーがあったらお気に入り登録してみてください！</h5><br>
+          <% else %>
+            <% @user.maker_favorites.each do |maker_favorite| %>
+              <div class="col-sm-6 col-lg-4">
+                <%= link_to maker_path(maker_favorite.maker_id) do %>
+                  <%= attachment_image_tag maker_favorite.maker, :maker_image, size: "150x75", fallback:"/images/no_image(2).jpeg" %>
+                    <% end %>
+                      <%= maker_favorite.maker.maker_name %>
+              </div>
+              <% end %>
+                <% end %>
       </div>
     </div>
     <div class="row">
