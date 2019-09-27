@@ -6,15 +6,18 @@ class BikesController < ApplicationController
     @years_bikes = @bike.years_bikes
     @impression = Impression.new
     @impressions = @bike.impressions.page(params[:page]).per(10)
+    if @reviews.blank?
+       @reviews = [@bike.impressions.average(:design_evaluation), @bike.impressions.average(:weight_evaluation), @bike.impressions.average(:rigidity_evaluation), @bike.impressions.average(:comfort_evaluation), @bike.impressions.average(:cp_evaluation)]
+    else
     @reviews = [@bike.impressions.average(:design_evaluation).floor(1), @bike.impressions.average(:weight_evaluation).floor(1), @bike.impressions.average(:rigidity_evaluation).floor(1), @bike.impressions.average(:comfort_evaluation).floor(1), @bike.impressions.average(:cp_evaluation).floor(1)]
     @review = Impression.find_by(id: params[:id])
-
+   end
 
     if params[:year]
     @recent_years_bikes = YearsBike.find_by(year: params[:year] )
     else
     @recent_years_bikes = YearsBike.find_by(year: @bike.years_bikes.maximum(:year))
-end
+  end
 
   end
 

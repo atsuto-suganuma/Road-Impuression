@@ -52,6 +52,10 @@
       <%= link_to "年度情報を追加する",admin_maker_years_bike_new_path(@bike.maker_id,@bike.id), class:"btn btn-primary" %>
       <%= link_to "このバイクを編集する", admin_maker_bike_edit_path, class:"btn btn-warning" %>
       <%= link_to "このバイクを削除する", admin_maker_bike_destroy_path(@bike.maker,@bike.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？"%>
+
+      <% if @reviews.present? %>
+        <h3 class="review-area">このバイクにはまだインプレッションがありません。</h3>
+        <% else %>
       <h3>インプレッション</h3>
       <canvas id="myChart" style ="width:200px, height:200px;"></canvas>
       <% @bike.impressions.each do |impression| %>
@@ -152,6 +156,7 @@
           </div>
         </div>
       </div>
+      <% end %>
       <% end %>
       <%= paginate @impressions, class: "paginate" %>
     </div>

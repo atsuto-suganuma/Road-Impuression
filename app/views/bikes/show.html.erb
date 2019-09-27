@@ -31,7 +31,7 @@ year=bike.bike=imagesをいーちまわす
 
       <% @recent_years_bikes.years_bike_images.each_with_index do |years_bike_image, i| %>
         <% if years_bike_image.display_order == 1 %>
-          <div class="row small-image-list" style="text-align: center">
+          <div class="row small-image-list">
             <div class="col-sm-4 col-lg-3 small-image">
               <%= attachment_image_tag years_bike_image, :image, format:'jpeg',size: "200x125", fallback:"/images/no_image(2).jpg", class:"small-image", id:"small1" %>
             </div>
@@ -59,6 +59,16 @@ year=bike.bike=imagesをいーちまわす
     <% end %>
     <% end %>
   </div>
+  <%if @reviews.present?%>
+      <div class="row">
+      <div class="col-sm-12 col-lg-12 review-area">
+        <h3 class="text-center">
+          このバイクのレビューはまだありません。<br>
+          ぜひ最初のレビューをしてみてください！
+        </h3>
+      </div>
+    </div>
+    <% else %>
     <div class="row">
       <div class="col-sm-12 col-lg-12">
         <h3>インプレッション</h3>
@@ -154,6 +164,7 @@ year=bike.bike=imagesをいーちまわす
           </div>
         </div>
       </div>
+        <% end %>
         <% end %>
         <%= paginate @impressions, class: "paginate" %>
       </div>
