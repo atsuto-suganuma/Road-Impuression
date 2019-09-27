@@ -16,14 +16,8 @@
         <% else %>
         <% end %>
         <% end %>
-
-<!--         recent_year_bikeの情報出す
-@year_bikesをいーちまわす
-　年度表示
-year=bike.bike=imagesをいーちまわす
-それぞれの年度ごとのバイクの画像表示 -->
       <div class="row">
-        <div class="col-sm-12 col-lg-12" style="text-align: center;">
+        <div class="col-sm-12 col-lg-12">
           <img id="big-image" src="" style="width:800px; height:500px;">
         </div>
       </div>
@@ -47,7 +41,7 @@ year=bike.bike=imagesをいーちまわす
       <% end %>
     <div class="col-sm-12 col-lg-12">
       <h3>バイク概要</h3>
-      <%= @recent_years_bikes.year_bike_body %>
+      <%= simple_format(@recent_years_bikes.year_bike_body) %>
     </div>
     <% if user_signed_in? %>
     <% if @bike.favorited_by?(current_user) %>
@@ -59,21 +53,21 @@ year=bike.bike=imagesをいーちまわす
     <% end %>
     <% end %>
   </div>
-  <%if @reviews.present?%>
-      <div class="row">
-      <div class="col-sm-12 col-lg-12 review-area">
-        <h3 class="text-center">
-          このバイクのレビューはまだありません。<br>
-          ぜひ最初のレビューをしてみてください！
-        </h3>
-      </div>
+  <% if @reviews.nil? %>
+  <div class="row">
+    <div class="col-sm-12 col-lg-12 review-area">
+      <h3>このバイクにはまだインプレッションがありません。<br>
+      ぜひ最初のインプレッションをしてくださいね！</h3>
     </div>
-    <% else %>
+  </div>
+  <% else %>
     <div class="row">
       <div class="col-sm-12 col-lg-12">
         <h3>インプレッション</h3>
         <canvas id="myChart" style ="width:200px, height:200px;"></canvas>
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm-12 col-lg-12">
         <h3>レビュー詳細</h3>
         <% @bike.impressions.each do |impression| %>
@@ -160,7 +154,6 @@ year=bike.bike=imagesをいーちまわす
                       <% end %>
 
                 </div>
-
           </div>
         </div>
       </div>
@@ -223,7 +216,7 @@ year=bike.bike=imagesをいーちまわす
     $('#big-image').attr("src", url);
   });
 </script>
-<script>
+<script type="text/javascript">
   $('#design_star').raty({
     size     : 36,
     starOff:  '<%= asset_path('/images/star-off.png') %>',
@@ -270,7 +263,7 @@ year=bike.bike=imagesをいーちまわす
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-  <script>
+  <script type="text/javascript">
     $(function(){
 
 
@@ -315,7 +308,7 @@ year=bike.bike=imagesをいーちまわす
     })
   </script>
 
-  <script>
+  <script type="text/javascript">
 var itemHeights = [];
 var returnHeight;
 
@@ -339,7 +332,7 @@ $(this).removeClass("is-show").next().animate({height: returnHeight},200).addCla
 })
 });
   </script>
-<script>
+<script type="text/javascript">
   $(function(){
     $(document).on('click', 'input[name = impression-create]', function() {
         // バリデーション
