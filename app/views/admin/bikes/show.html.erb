@@ -75,22 +75,22 @@
               <%= impression.created_at.strftime("%Y/%m/%d/ %H:%M") %>
               <br>
               <p style="display: inline-block;">総合評価：
-                <div class="satisfaction_star-rate-<dbe3948654e026d88c030c0d176c5a34 />" style="display: inline-block;"></div>
+                <div class="satisfaction_star-rate-<%= impression.id %>" style="display: inline-block;"></div>
               </p>
               <p style="display: inline-block;">デザイン評価：
-                <div class="design_star-rate-<4c312e62ef883218994e75e7d6ff7841 />" style="display: inline-block;"></div>
+                <div class="design_star-rate-<%= impression.id %>" style="display: inline-block;"></div>
               </p>
               <p style="display: inline-block;">重量評価：
-                <div class="weight_star-rate-<d3fd4050f568a99e74d9267ee919570d />" style="display: inline-block;"></div>
+                <div class="weight_star-rate-<%= impression.id %>" style="display: inline-block;"></div>
               </p>
               <p style="display: inline-block;">剛性評価：
-                <div class="rigidity_star-rate-<ebc6630598672793229f0c1b51b37f3e />" style="display: inline-block;"></div>
+                <div class="rigidity_star-rate-<%= impression.id %>" style="display: inline-block;"></div>
               </p>
               <p style="display: inline-block;">快適性評価：
-                <div class="comfort_star-rate-<a324e7ca3a3c34906cf40ca85c3238f6 />" style="display: inline-block;"></div>
+                <div class="comfort_star-rate-<%= impression.id %>" style="display: inline-block;"></div>
               </p>
               <p style="display: inline-block;">コストパフォーマンス評価：
-                <div class="cp_star-rate-<74a05ef3db5f607ec9c083bb306981c6 />" style="display: inline-block;"></div>
+                <div class="cp_star-rate-<%= impression.id %>" style="display: inline-block;"></div>
               </p>
               <% if impression.impression_text.lines.count > 4 %>
               <div class="grad-warp">
@@ -138,7 +138,7 @@
                         $('.comfort_star-rate-<%= impression.id %>').raty({
                           size: 36,
                           starOff:  '<%= asset_path('/images/star-off.png') %>',
-                          starOn : '<%= asset_path('images/star-on.png') %>',
+                          starOn : '<%= asset_path('/images/star-on.png') %>',
                           readOnly: true,
                           score: <%=impression.comfort_evaluation %>
                         });
