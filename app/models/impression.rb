@@ -9,6 +9,8 @@ class Impression < ApplicationRecord
   validates :rigidity_evaluation, presence: true
   validates :comfort_evaluation, presence: true
   validates :cp_evaluation, presence: true
+  validates :impression_title, presence: true
+  validates :impression_text, presence: true
 
 
   def favorited_by(user)
