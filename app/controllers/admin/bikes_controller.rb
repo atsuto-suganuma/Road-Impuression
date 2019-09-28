@@ -17,8 +17,8 @@ class Admin::BikesController < ApplicationController
     @bike = Bike.find(params[:id])
     @user = User.find_by(id: params[:id])
     @impressions = @bike.impressions.page(params[:page]).per(10)
-   if @reviews.blank?
-      @reviews = [@bike.impressions.average(:design_evaluation), @bike.impressions.average(:weight_evaluation), @bike.impressions.average(:rigidity_evaluation), @bike.impressions.average(:comfort_evaluation), @bike.impressions.average(:cp_evaluation)]
+   if @bike.impressions.blank?
+      @reviews = [@bike.impressions.average(:design_evaluation).to_f, @bike.impressions.average(:weight_evaluation).to_f, @bike.impressions.average(:rigidity_evaluation).to_f, @bike.impressions.average(:comfort_evaluation).to_f, @bike.impressions.average(:cp_evaluation).to_f]
     else
       @reviews = [@bike.impressions.average(:design_evaluation).floor(1).to_f, @bike.impressions.average(:weight_evaluation).floor(1).to_f, @bike.impressions.average(:rigidity_evaluation).floor(1).to_f, @bike.impressions.average(:comfort_evaluation).floor(1).to_f, @bike.impressions.average(:cp_evaluation).floor(1).to_f]
   end
