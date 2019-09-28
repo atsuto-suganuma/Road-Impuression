@@ -20,7 +20,7 @@ class Admin::BikesController < ApplicationController
    if @reviews.blank?
       @reviews = [@bike.impressions.average(:design_evaluation), @bike.impressions.average(:weight_evaluation), @bike.impressions.average(:rigidity_evaluation), @bike.impressions.average(:comfort_evaluation), @bike.impressions.average(:cp_evaluation)]
     else
-      @reviews = [@bike.impressions.average(:design_evaluation).floor(1), @bike.impressions.average(:weight_evaluation).floor(1), @bike.impressions.average(:rigidity_evaluation).floor(1), @bike.impressions.average(:comfort_evaluation).floor(1), @bike.impressions.average(:cp_evaluation).floor(1)]
+      @reviews = [@bike.impressions.average(:design_evaluation).floor(1).to_f, @bike.impressions.average(:weight_evaluation).floor(1).to_f, @bike.impressions.average(:rigidity_evaluation).floor(1).to_f, @bike.impressions.average(:comfort_evaluation).floor(1).to_f, @bike.impressions.average(:cp_evaluation).floor(1).to_f]
   end
 end
 
@@ -46,7 +46,7 @@ end
 
     def search_bike
     if params[:tag_name]
-       @bikes = Bike.tagged_with("#{params[:tag_name]}")
+       @bikes = Bike.tagged_with("#{params[:tag_name]}").page(params[:page]).per(50)
     elsif params[:q].nil?
       @bikes = Bike.page(params[:page]).per(50)
     else

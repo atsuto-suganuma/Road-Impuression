@@ -53,7 +53,7 @@
     <% end %>
     <% end %>
   </div>
-  <% if @reviews.nil? %>
+  <% if @reviews.all?{|e| e.nil?} %>
   <div class="row">
     <div class="col-sm-12 col-lg-12 review-area">
       <h3>このバイクにはまだインプレッションがありません。<br>
@@ -63,13 +63,13 @@
   <% else %>
     <div class="row">
       <div class="col-sm-12 col-lg-12">
-        <h3>インプレッション</h3>
+        <h3>レーダーチャート</h3>
         <canvas id="myChart" style ="width:200px, height:200px;"></canvas>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 col-lg-12">
-        <h3>レビュー詳細</h3>
+        <h3>インプレッション詳細</h3>
         <% @bike.impressions.each do |impression| %>
           <div class="impression-area">
             <div class="balloon5 d-flex">
