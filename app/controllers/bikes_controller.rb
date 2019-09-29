@@ -7,17 +7,25 @@ class BikesController < ApplicationController
     @impression = Impression.new
     @impressions = @bike.impressions.page(params[:page]).per(10)
     @review = Impression.find_by(id: params[:id])
+
+
+    if params[:year]
+      year = params[:year].to_i
+      @recent_years_bikes = YearsBike.where(year: year)
+    else
+     @recent_years_bikes = YearsBike.where(year: @bike.years_bikes.maximum(:year))
+    end
+
+    @recentbike = @recent_years_bikes.to_a.select do |bike|
+     bike.bike_id == @bike.id
+    end
+    @recentbike = @recentbike[0]
+
     if @bike.impressions.blank?
        @reviews = [@bike.impressions.average(:design_evaluation).to_f, @bike.impressions.average(:weight_evaluation).to_f, @bike.impressions.average(:rigidity_evaluation).to_f, @bike.impressions.average(:comfort_evaluation).to_f, @bike.impressions.average(:cp_evaluation).to_f]
     else
        @reviews = [@bike.impressions.average(:design_evaluation).floor(1).to_f, @bike.impressions.average(:weight_evaluation).floor(1).to_f, @bike.impressions.average(:rigidity_evaluation).floor(1).to_f, @bike.impressions.average(:comfort_evaluation).floor(1).to_f, @bike.impressions.average(:cp_evaluation).floor(1).to_f]
-   end
-
-    if params[:year]
-    @recent_years_bikes = YearsBike.find_by(year: params[:year] )
-    else
-    @recent_years_bikes = YearsBike.find_by(year: @bike.years_bikes.maximum(:year))
-  end
+    end
 
   end
 
