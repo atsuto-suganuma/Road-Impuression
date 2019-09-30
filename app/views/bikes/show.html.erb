@@ -10,7 +10,7 @@
       <% @years_bikes.each_with_index do |years_bike, i| %>
         <% if (i == 0) %>
           <%= form_with(url: maker_bike_path(@bike.maker_id,@bike.id, year: years_bike.year), html: {method: "get"}, local: true) do |f| %>
-            <%= f.collection_select :year, YearsBike.all, :year, :year %>
+            <%= f.collection_select :year, @years_bikes, :year, :year %>
             <%= f.submit "検索", class:"btn btn-default" %>
           <% end %>
         <% else %>
