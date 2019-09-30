@@ -45,11 +45,11 @@
     </div>
     <% if user_signed_in? %>
     <% if @bike.favorited_by?(current_user) %>
-      <%= link_to "このバイクをお気に入り登録する", maker_bike_bike_favorites_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
-      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_bike_favorites_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
+      <%= link_to "このバイクをお気に入り登録する", maker_bike_bike_favorites_path(@bike.maker,@bike.id),method: :post, remote: true, class:"btn btn-primary b-f like-hide", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する", maker_bike_bike_favorites_path(@bike.maker,@bike.id), method: :delete,remote: true, class:"btn btn-warning b-f" , id: "delete_favorite"%>
     <% else %>
-      <%= link_to "このバイクをお気に入り登録する",  maker_bike_bike_favorites_path(@bike.id,@bike.maker),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
-      <%= link_to "このバイクをお気に入り登録を解除する",  maker_bike_bike_favorites_path(@bike.id, @bike.maker), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
+      <%= link_to "このバイクをお気に入り登録する",  maker_bike_bike_favorites_path(@bike.maker,@bike.id),method: :post, remote: true, class:"btn btn-primary b-f", id: "create_favorite" %>
+      <%= link_to "このバイクをお気に入り登録を解除する",  maker_bike_bike_favorites_path(@bike.maker,@bike.id), method: :delete,remote: true, class:"btn btn-warning b-f like-hide" , id: "delete_favorite"%>
     <% end %>
     <% end %>
   </div>
