@@ -211,7 +211,7 @@
 
 
 <script type="text/javascript">
-  $(function(){
+  $(document).on('turbolinks:load', function(){
     var url = $('#small1').attr("src");
     $('#big-image').attr("src", url);
   });
@@ -264,7 +264,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
   <script type="text/javascript">
-    $(function(){
+    $(document).on('turbolinks:load', function(){
 
 
       var ctx = document.getElementById("myChart").getContext('2d');
@@ -312,7 +312,7 @@
 var itemHeights = [];
 var returnHeight;
 
-$(function(){
+$(document).on('turbolinks:load', function(){
 $(".grad-item").each(function(){ //ターゲット(縮めるアイテム)
 var thisHeight = $(this).height(); //ターゲットの高さを取得
 itemHeights.push(thisHeight); //それぞれの高さを配列に入れる
@@ -333,7 +333,7 @@ $(this).removeClass("is-show").next().animate({height: returnHeight},200).addCla
 });
   </script>
 <script type="text/javascript">
-  $(function(){
+  $(document).on('turbolinks:load', function(){
     $(document).on('click', 'input[name = impression-create]', function() {
         // バリデーション
         let value1 = document.getElementsByName("impression[satisfaction_level]")

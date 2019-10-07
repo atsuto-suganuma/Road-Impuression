@@ -18,7 +18,7 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
 	$("#theTarget").skippr({
 		// スライドショーの変化（fade or slide）
 		transition : 'slide',
@@ -43,7 +43,7 @@ $(document).ready(function() {
 	});
 });
 
-$(document).ready(function(){
+$(document).on("turbolinks:load", function(){
     $("#back").hide();
     $(window).on("scroll", function() {
         if ($(this).scrollTop() > 100) {
@@ -102,15 +102,6 @@ $(function() {
   })
 });
 
-  $(function() {
-    $(document).on("ajax:success", ".u-f", function(e) {
-      if ($('#' + e.detail[0]).hasClass('fa-star')) {
-        $('#' + e.detail[0]).removeClass('fa-star').addClass('fa-star-o');
-      } else {
-    $('#' + e.detail[0]).removeClass('fa-star-o').addClass('fa-star');
-      }
-    })
-  })
 
  $(function() {
   $(document).on("ajax:success", ".m-f", function(e) {
@@ -123,3 +114,5 @@ $(function() {
     }
   })
 });
+
+ 
