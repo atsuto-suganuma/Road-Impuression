@@ -37,7 +37,6 @@ class Admin::YearsBikesController < ApplicationController
     @bike = @years_bike.bike
     @years_bike.destroy
     redirect_to admin_maker_bike_show_path(@bike.maker_id,@bike.id)
-
   end
 
 private
