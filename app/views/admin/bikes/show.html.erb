@@ -42,8 +42,9 @@
               <%= years_bike.year_bike_body.truncate(20) %>
             </td>
             <td>
-              <%= link_to "編集",admin_maker_years_bike_edit_path(@bike.maker_id,@bike.id, year: years_bike.year), class:"btn btn-warning" %>
-              <%= link_to "削除", admin_maker_years_bike_destroy_path(@bike.maker, @bike.id, year: years_bike.year), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？"%>
+
+              <%= link_to "編集",admin_maker_years_bike_edit_path(@bike.maker_id,@bike.id, years_bike.id, year: years_bike.year), class:"btn btn-warning" %>
+              <%= link_to "削除", admin_maker_years_bike_destroy_path(@bike.maker, @bike.id, years_bike.id, year: years_bike.year), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？"%>
             </td>
           </tr>
           <% end %>
