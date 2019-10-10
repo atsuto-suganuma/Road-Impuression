@@ -19,11 +19,11 @@ class Admin::YearsBikesController < ApplicationController
   end
 
   def edit
-  	@years_bike = YearsBike.find_by(year: params[:year])
+  	@years_bike = YearsBike.find(params[:id])
   end
 
   def update
-    @years_bike = YearsBike.find_by(year: params[:year])
+    @years_bike = YearsBike.find(params[:id])
     @bike = @years_bike.bike
     if @years_bike.update(years_bike_params)
        redirect_to admin_maker_bike_show_path(@bike.maker_id,@bike.id)
@@ -33,7 +33,7 @@ class Admin::YearsBikesController < ApplicationController
   end
 
   def destroy
-    @years_bike = YearsBike.find_by(year: params[:year])
+    @years_bike = YearsBike.find(params[:id])
     @bike = @years_bike.bike
     @years_bike.destroy
     redirect_to admin_maker_bike_show_path(@bike.maker_id,@bike.id)

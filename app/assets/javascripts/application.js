@@ -74,7 +74,7 @@ $(document).on("turbolinks:load", function(){
     });
 });
 
-$(function() {
+$(document).on('turbolinks:load', function() {
   $('.menu-trigger').on('click', function() {
     $(this).toggleClass('active');
     $('#sp-menu').fadeToggle();
@@ -83,14 +83,14 @@ $(function() {
 });
 
 
-$(function(){
+$(document).on('turbolinks:load', function(){
   $(".small-image").click(function(){
     url = $(this).attr("src");
     $("#big-image").attr("src", url);
   });
 });
 
-$(function() {
+$(document).on('turbolinks:load', function() {
   $(document).on("ajax:success", ".b-f", function(e) {
     if ($('#create_favorite').hasClass('like-hide')) {
       $('#create_favorite').removeClass('like-hide')
@@ -103,7 +103,7 @@ $(function() {
 });
 
 
- $(function() {
+ $(document).on('turbolinks:load', function() {
   $(document).on("ajax:success", ".m-f", function(e) {
     if ($('#create_favorite').hasClass('like-hide')) {
       $('#create_favorite').removeClass('like-hide')

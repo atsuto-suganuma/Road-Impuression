@@ -42,8 +42,9 @@
               <%= years_bike.year_bike_body.truncate(20) %>
             </td>
             <td>
-              <%= link_to "編集",admin_maker_years_bike_edit_path(@bike.maker_id,@bike.id, year: years_bike.year), class:"btn btn-warning" %>
-              <%= link_to "削除", admin_maker_years_bike_destroy_path(@bike.maker, @bike.id, year: years_bike.year), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？"%>
+
+              <%= link_to "編集",admin_maker_years_bike_edit_path(@bike.maker_id,@bike.id, years_bike.id, year: years_bike.year), class:"btn btn-warning" %>
+              <%= link_to "削除", admin_maker_years_bike_destroy_path(@bike.maker, @bike.id, years_bike.id, year: years_bike.year), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？"%>
             </td>
           </tr>
           <% end %>
@@ -168,7 +169,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
   <script>
-    $(function(){
+    $(document).on('turbolinks:load', function(){
 
 
       var ctx = document.getElementById("myChart").getContext('2d');
@@ -216,7 +217,7 @@
 var itemHeights = [];
 var returnHeight;
 
-$(function(){
+$(document).on('turbolinks:load', function(){
 $(".grad-item").each(function(){ //ターゲット(縮めるアイテム)
 var thisHeight = $(this).height(); //ターゲットの高さを取得
 itemHeights.push(thisHeight); //それぞれの高さを配列に入れる
@@ -225,6 +226,7 @@ returnHeight = $(this).height(); //is-hideの高さを取得
 });
 });
 
+$(document).on('turbolinks:load', function(){
 $(".grad-trigger").on({'click':(function(){ //トリガーをクリックしたら
 if(!$(this).hasClass("is-show")) {
 var index = $(this).index(".grad-trigger"); //トリガーが何個目か
@@ -234,5 +236,6 @@ $(this).addClass("is-show").next().animate({height: addHeight},200).removeClass(
 $(this).removeClass("is-show").next().animate({height: returnHeight},200).addClass("is-hide"); //高さを制限する
 }
 })
+});
 });
   </script>

@@ -50,9 +50,9 @@ Rails.application.routes.draw do
       patch 'bikes/:id' => 'bikes#update',as: 'bike_update'
         get 'bikes/:bike_id/years_bikes/new' => 'years_bikes#new', as: 'years_bike_new'
         post 'bikes/:bike_id/years_bikes' => 'years_bikes#create', as: 'years_bike_create'
-        get 'bikes/:id/years_bikes/:year/edit' => 'years_bikes#edit', as: 'years_bike_edit'
-        patch 'bikes/:id/years_bikes/:year' => 'years_bikes#update', as: 'years_bike_update'
-        delete 'bikes/:id/years_bikes/:year' => 'years_bikes#destroy', as: 'years_bike_destroy'
+        get 'bikes/:bike_id/years_bikes/:id/:year/edit' => 'years_bikes#edit', as: 'years_bike_edit'
+        patch 'bikes/:bike_id/years_bikes/:id/year' => 'years_bikes#update', as: 'years_bike_update'
+        delete 'bikes/:bike_id/years_bikes/:id/:year' => 'years_bikes#destroy', as: 'years_bike_destroy'
   end
 
     get 'search' => 'bikes#search_bike', as: 'search_bike'
