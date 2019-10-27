@@ -166,45 +166,46 @@
 <%= render 'layouts/page-up' %>
 <%= render "layouts/footer" %>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
-  $(document).on('turbolinks:load', function(){
+    $(document).on('turbolinks:load', function(){
+      // 要素が見つからない場合、ここでガードする
+      var element = document.getElementById("myChart");
+      if(!element) { return }
 
-
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ["デザイン", "重量", "剛性", "快適性", "コストパフォーマンス"],
-            datasets: [{
-                label: 'ユーザーの平均評価',
-                data: <%= @reviews %>,
-                backgroundColor: [
-                    'rgba(144, 238, 144, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            title: {
-              fontSize: 25,
-              display: true,
-              text: 'ユーザー評価'
-            },
-            scale: {
-                    ticks: {
-                      stepSize: 1,
-                      suggestedMax: 5,
-                      suggestedMin: 0,
-                      callback: function(value, index, values){
-                      return  value +  'つ星'
-                        beginAtZero:true
-                     }
-                    }
+      var ctx = element.getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'radar',
+          data: {
+              labels: ["デザイン", "重量", "剛性", "快適性", "コストパフォーマンス"],
+              datasets: [{
+                  label: 'ユーザーの平均評価',
+                  data: <%= @reviews %>,
+                  backgroundColor: [
+                      'rgba(144, 238, 144, 0.2)',
+                  ],
+                  borderColor: [
+                      'rgba(75, 192, 192, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              title: {
+                fontSize: 25,
+                display: true,
+                text: 'ユーザー評価'
+              },
+              scale: {
+                      ticks: {
+                        stepSize: 1,
+                        suggestedMax: 5,
+                        suggestedMin: 0,
+                        callback: function(value, index, values){
+                        return  value +  'つ星'
+                          beginAtZero:true
+                       }
+                      }
+                }
               }
             }
         }
