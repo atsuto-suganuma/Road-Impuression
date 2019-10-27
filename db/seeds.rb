@@ -8,7 +8,7 @@
 # coding: utf-8
 
 # Adminの初期設定
-Admin.create!(email: 'roadimpression@gmail.com',
-  password: 'dmmwebcamp07'
+Admin.create!(email: ENV['ADMIN_MAIL'],
+  password: ENV['ADMIN_PASS']
   )
 
