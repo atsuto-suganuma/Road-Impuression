@@ -168,74 +168,77 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-  <script>
-    $(document).on('turbolinks:load', function(){
+<script>
+  $(document).on('turbolinks:load', function(){
 
 
-      var ctx = document.getElementById("myChart").getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'radar',
-          data: {
-              labels: ["デザイン", "重量", "剛性", "快適性", "コストパフォーマンス"],
-              datasets: [{
-                  label: 'ユーザーの平均評価',
-                  data: <%= @reviews %>,
-                  backgroundColor: [
-                      'rgba(144, 238, 144, 0.2)',
-                  ],
-                  borderColor: [
-                      'rgba(75, 192, 192, 1)',
-                  ],
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              title: {
-                fontSize: 25,
-                display: true,
-                text: 'ユーザー評価'
-              },
-              scale: {
-                      ticks: {
-                        stepSize: 1,
-                        suggestedMax: 5,
-                        suggestedMin: 0,
-                        callback: function(value, index, values){
-                        return  value +  'つ星'
-                          beginAtZero:true
-                       }
-                      }
-                }
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ["デザイン", "重量", "剛性", "快適性", "コストパフォーマンス"],
+            datasets: [{
+                label: 'ユーザーの平均評価',
+                data: <%= @reviews %>,
+                backgroundColor: [
+                    'rgba(144, 238, 144, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            title: {
+              fontSize: 25,
+              display: true,
+              text: 'ユーザー評価'
+            },
+            scale: {
+                    ticks: {
+                      stepSize: 1,
+                      suggestedMax: 5,
+                      suggestedMin: 0,
+                      callback: function(value, index, values){
+                      return  value +  'つ星'
+                        beginAtZero:true
+                     }
+                    }
               }
-          }
+            }
+        }
 
-      );
-    })
-  </script>
+    );
+  })
+</script>
 
-  <script>
+<script>
 var itemHeights = [];
 var returnHeight;
-
-$(document).on('turbolinks:load', function(){
-$(".grad-item").each(function(){ //ターゲット(縮めるアイテム)
-var thisHeight = $(this).height(); //ターゲットの高さを取得
-itemHeights.push(thisHeight); //それぞれの高さを配列に入れる
-$(this).addClass("is-hide"); //CSSで指定した高さにする
-returnHeight = $(this).height(); //is-hideの高さを取得
+$(document).on('turbolinks:load', function () {
+  $(".grad-item").each(function () { //ターゲット(縮めるアイテム)
+    var thisHeight = $(this).height(); //ターゲットの高さを取得
+    itemHeights.push(thisHeight); //それぞれの高さを配列に入れる
+    $(this).addClass("is-hide"); //CSSで指定した高さにする
+    returnHeight = $(this).height(); //is-hideの高さを取得
+  });
 });
+$(document).on('turbolinks:load', function () {
+  $(".grad-trigger").on({
+    'click': (function () { //トリガーをクリックしたら
+      if (!$(this).hasClass("is-show")) {
+        var index = $(this).index(".grad-trigger"); //トリガーが何個目か
+        var addHeight = itemHeights[index]; //個数に対応する高さを取得
+        $(this).addClass("is-show").next().animate({
+          height: addHeight
+        }, 200).removeClass("is-hide"); //高さを元に戻す
+      } else {
+        $(this).removeClass("is-show").next().animate({
+          height: returnHeight
+        }, 200).addClass("is-hide"); //高さを制限する
+      }
+    })
+  });
 });
-
-$(document).on('turbolinks:load', function(){
-$(".grad-trigger").on({'click':(function(){ //トリガーをクリックしたら
-if(!$(this).hasClass("is-show")) {
-var index = $(this).index(".grad-trigger"); //トリガーが何個目か
-var addHeight = itemHeights[index]; //個数に対応する高さを取得
-$(this).addClass("is-show").next().animate({height: addHeight},200).removeClass("is-hide"); //高さを元に戻す
-} else {
-$(this).removeClass("is-show").next().animate({height: returnHeight},200).addClass("is-hide"); //高さを制限する
-}
-})
-});
-});
-  </script>
+</script>

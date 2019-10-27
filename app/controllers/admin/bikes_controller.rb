@@ -55,11 +55,6 @@ end
     end
   end
 
-  # def search_bike
-
-  #   @bikes = Bike.tagged_with(params[:tag])
-  # end
-
   private
     def search_params
       params.require(:q).permit!
