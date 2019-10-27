@@ -167,12 +167,13 @@
 <%= render "layouts/footer" %>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
   <script>
     $(document).on('turbolinks:load', function(){
+      // 要素が見つからない場合、ここでガードする
+      var element = document.getElementById("myChart");
+      if(!element) { return }
 
-
-      var ctx = document.getElementById("myChart").getContext('2d');
+      var ctx = element.getContext('2d');
       var myChart = new Chart(ctx, {
           type: 'radar',
           data: {
