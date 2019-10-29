@@ -82,10 +82,6 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
-$(document).on('turbolinks:load', function(){
-  var url = $('#small1').attr("src");
-  $('#big-image').attr("src", url);
-});
 
 $(document).on('turbolinks:load', function(){
   $(".small-image").click(function(){
