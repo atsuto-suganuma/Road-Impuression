@@ -15,7 +15,6 @@
             <th><%= sort_link(@q, :name, "ユーザー名") %></th>
             <th>メールアドレス</th>
             <th>最終ログイン日</th>
-            <th>警告回数</th>
           </tr>
         </thead>
         <tbody>
@@ -31,11 +30,6 @@
               </td>
               <td>
                 <%= user.current_sign_in_at.strftime("%Y/%m/%d/ %H:%M")%>
-              </td>
-              <td>
-                <%= form_for([user], url: admin_user_path(user.id), html: {method: "patch"}) do |f| %>
-                <%= f.select :caution, [["違反なし", "normal"],["注意","caution"],["警告","warning"], ["懲戒","discipline"]]%>
-                <% end %>
               </td>
           </tr>
         </tbody>
